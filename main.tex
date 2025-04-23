@@ -6,6 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{ifthen}                     % provide if-then-else operators
 \usepackage{datetime}
+\usepackage{textcomp}
 % --------------------------------------------------------------------------
 % Global variables required in document formatting
 % --------------------------------------------------------------------------
@@ -115,8 +116,8 @@ de \number\year}
 }{%
 }
 
-  \include{notation}                                    % Notation
-  \include{glosario}                                    % Abbreviation
+  % \include{notation}                                    % Notation
+  % \include{glosario}                                    % Abbreviation
 
   \parskip1.3ex                           % space between paragraphs
 
@@ -128,22 +129,22 @@ de \number\year}
 
   % Main files
   \include{intro}
-  \include{teoria}
-  \include{solucion}
-  \include{resultados}
-  \include{conclusiones}
+  % \include{teoria}
+  % \include{solucion}
+  % \include{resultados}
+  % \include{conclusiones}
 
   %----------------------------------------------------------------------------
   % literature
-  \bibliographystyle{sty/plainurl} % for english documents
-  \bibliography{literatura}
+  \bibliographystyle{IEEEtran}
+  \bibliography{references}
   %----------------------------------------------------------------------------
 
   %----------------------------------------------------------------------------
   \appendix
   %----------------------------------------------------------------------------
 
-  \include{apendice}
+  % \include{apendice}
 
   %----------------------------------------------------------------------------
   \backmatter
