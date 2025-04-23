@@ -54,6 +54,8 @@ La validación de identidad se realizará mediante técnicas de reconocimiento f
 
 \subsection{Trabajos similares}
 
+
+
 % Indique al menos tres trabajos similares con sus respectivas referencias, debe de indicar cómo se relacionan y cómo se diferencian de cada uno.
 
 
@@ -112,7 +114,7 @@ En síntesis, el proyecto busca atacar el problema de los ingresos no autorizado
 
 Dicho esto, se considera que una solución de reconocimiento facial que sea capaz de operar de forma rápida, confiable y sin contacto físico, mejorando la seguridad y comodidad para los usuarios, le daría una ventaja competitiva al producto. El desarrollo del producto descrito en este documento busca desarrollar un sistema optimizado que minimice la latencia en el procesamiento de reconocimiento facial y se integre eficientemente con el sistema de gestión de membresías de Fito App, con un enfoque en la mantenibilidad y escalabilidad, aumentando así su competitividad en el mercado y su valor para los gimnasios que tengan dicha necesidad.
 
-
+\newpage
 \section{Objetivos del proyecto}
 En este apartado se definen los objetivos del proyecto, tanto el objetivo general como los específicos. 
 
@@ -122,20 +124,23 @@ En este apartado se definen los objetivos del proyecto, tanto el objetivo genera
 
 \subsection{Objetivo general}
 % El objetivo general responde de manera directa el problema en concreto
-Desarrollar un sistema de control de acceso para gimnasios mediante el uso de técnicas de reconocimiento facial, con el fin de mejorar la seguridad y eficiencia en la validación de membresías, utilizando una plataforma de \textit{hardware} embebido con un sistema operativo personalizado y de propósito específico para garantizar la optimización de recursos y la integración con el sistema de gestión de Fito App.
+Desarrollar un sistema de control de acceso para gimnasios, que mejore la seguridad y eficiencia en la validación de membresías en el sistema de gestión de Fito App, utilizando una plataforma de \textit{hardware} embebido con un sistema operativo personalizado y de propósito específico. %para garantizar la optimización de recursos y la integración con el sistema de gestión de Fito App.
 
 
 \subsection{Objetivos específicos}\label{secc:objectives}
 Los objetivos específicos se asocian con un identificador único para poder ser referenciados en secciones posteriores del documento con mayor facilidad.
 
 \begin{enumerate}
-    \item \textbf{OE1}: Diseñar la arquitectura de un sistema embebido de control de acceso, para establecer una estructura clara de hardware y software que permita la captura y análisis de datos biométricos, mediante el uso de una plataforma de bajo costo con un sistema operativo de propósito específico.
+    \item \textbf{OE1}: Diseñar la arquitectura de un sistema embebido de control de acceso, %para establecer una estructura clara de hardware y software 
+    que permita la captura y análisis de datos biométricos, mediante el uso de una plataforma de bajo costo con un sistema operativo de propósito específico.
 
-    \item \textbf{OE2}: Desarrollar un módulo de reconocimiento facial, para validar la identidad de los usuarios que acceden al gimnasio, mediante la integración de una cámara y el uso de servicios en la nube que posibiliten el procesamiento y análisis de imágenes en tiempo real.
+    \item \textbf{OE2}: Desarrollar un módulo de reconocimiento facial, para la validación de la identidad de los usuarios en el punto de ingreso al gimnasio, mediante la integración de una cámara y el uso de servicios en la nube. %que posibiliten el procesamiento y análisis de imágenes en tiempo real.
     
-    \item \textbf{OE3}: Integrar un módulo de reportes en el sistema de administración de Fito App, para que los administradores de gimnasios puedan consultar estadísticas de acceso de sus clientes, mediante una interfaz de comunicación entre el sistema de reconocimiento facial y el \textit{backend} de Fito App, así como la visualización de los datos a través de una interfaz web.
+    \item \textbf{OE3}: Integrar un módulo de reportes en el sistema de administración de Fito App, %para que los administradores de gimnasios puedan 
+    que permita la consulta de estadísticas de acceso de los usuarios, mediante %una interfaz de comunicación entre el sistema de reconocimiento facial y el \textit{backend} de Fito App, así como la visualización de los datos a través de una interfaz web.
+    una interfaz web.
     
-    \item \textbf{OE4}: Evaluar el rendimiento del sistema en un entorno real, para verificar el cumplimiento de los requisitos de eficiencia, precisión y experiencia de usuario, mediante pruebas controladas que midan la latencia, la tasa de aciertos en el reconocimiento facial y la confiabilidad operativa del sistema.
+    \item \textbf{OE4}: Evaluar el rendimiento del sistema en un entorno real, para la verificación del cumplimiento de los requisitos de latencia, precisión y experiencia de usuario, mediante pruebas de campo controladas. % que midan la latencia, la tasa de aciertos en el reconocimiento facial y la confiabilidad operativa del sistema.
 
 \end{enumerate}
 
@@ -173,7 +178,7 @@ En la \textit{Tabla \ref{tab:deliverables}}, se resumen los entregables del proy
     \caption{Entregables del proyecto según objetivo específico}
     \label{tab:deliverables}
 \end{table}
-    
+
 
 \subsection{Limitaciones del proyecto}
 El desarrollo del proyecto se verá influenciado por diversas limitaciones que podrían afectar su ejecución y resultados. A continuación se enumeran las principales limitaciones identificadas:
