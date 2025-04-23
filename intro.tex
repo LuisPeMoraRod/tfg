@@ -25,7 +25,7 @@ El proyecto se desarrolla dentro de una organización catalogada como un emprend
 En procesos de entrevistas realizadas a potenciales clientes, se identificó que hay una deficiencia en las aplicaciones y otros sistemas manuales que actualmente utilizan los gimnasios, lo que genera frustración tanto a los administradores, como a los colaboradores y clientes de los gimnasios. Así, el objetivo de la organización es mejorar la eficiencia operativa de los centros de \textit{fitness} y la experiencia de sus clientes, mediante el uso de tecnología y la automatización de procesos.
 
 
-Fito App nació en 2023, a manos de Lic. Ignacio Castro Hidalgo, actual director ejecutivo y quien impulsó la participación de la organización en el concurso para optar por los fondos de prototipado (capital semilla) otorgados por la Agencia Universitaria para la Gestión Emprendedora (AUGE) de la Universidad de Costa Rica a finales de ese mismo año. Los fondos de prototipado son recursos concursables y no reembolsables auspiciados por el Sistema de Banca para el Desarrollo (SBD), que brinda recursos financieros a iniciativas desarrolladas dentro del Programa Proyectos de Innovación Tecnológica (PITs) \cite{auge_fondos}.
+Fito App nació en 2023, a manos de Lic. Ignacio Castro Hidalgo, actual director ejecutivo y quien impulsó la participación de la organización en el concurso para optar por los fondos de prototipado (capital semilla) otorgados por la Agencia Universitaria para la Gestión Emprendedora (AUGE) de la Universidad de Costa Rica a finales de ese mismo año. Los fondos de prototipado son recursos concursables y no reembolsables auspiciados por el Sistema de Banca para el Desarrollo (SBD), que brinda recursos financieros a iniciativas desarrolladas dentro del Programa Proyectos de Innovación Tecnológica (PIT) \cite{auge_fondos}.
 
 La participación en el concurso por los fondos fue exitosa, y a partir de febrero del año 2024, se empezó a hacer efectiva la ejecución del capital semilla para apoyar la construcción de un prototipo que permitiera realizar validaciones comerciales del modelo de negocio. La construcción del producto mínimo viable (MVP, por sus siglas en inglés) duró aproximadamente 6 meses, y en agosto del 2024 se hizo el primer lanzamiento del producto en su versión \textit{Beta}, lo que permitió establecer las primeras relaciones comerciales con clientes a manera de usuarios pioneros o \textit{early adopters} (en inglés).
 
@@ -50,11 +50,12 @@ El sistema embebido debe conectarse a internet para realizar validaciones de ide
 Para optimizar el uso de recursos y enfocar el sistema en su funcionalidad principal, se desarrolla un sistema operativo personalizado utilizando \textit{Yocto Project}, el cual permite configurar una distribución de Linux específicamente adaptada a los requerimientos del sistema embebido y de menor tamaño que un sistema operativo de uso general. Esto implica una comprensión importante de la estructura de los sistemas operativos, sus capas, manejo de servicios, drivers y optimización de recursos.
 
 \subsubsection{Reconocimiento de patrones}
-La validación de identidad se realizará mediante técnicas de reconocimiento facial, que consisten en la extracción y comparación de características biométricas del rostro del usuario. Estas técnicas se basan en algoritmos de reconocimiento de patrones, incluyendo redes neuronales convolucionales (CNNs) y otros métodos de aprendizaje profundo, que permiten identificar y clasificar imágenes de rostros con alta precisión. Es importante destacar que la relación del proyecto con esta área de conocimiento será a través del uso de modelos ya existentes y pre-entrenados, y servicios de terceros como \textit{Amazon Rekognition} \cite{amazon_rekognition}, que permiten realizar la validación de identidad de los usuarios a través de su API. Esto para buscar un enfoque práctico y aplicado en el uso de tecnologías avanzadas de reconocimiento facial, sin necesidad de desarrollar algoritmos desde cero.
+La validación de identidad se realizará mediante técnicas de reconocimiento facial, que consisten en la extracción y comparación de características biométricas del rostro del usuario. Estas técnicas se basan en algoritmos de reconocimiento de patrones, incluyendo redes neuronales convolucionales (CNN) y otros métodos de aprendizaje profundo, que permiten identificar y clasificar imágenes de rostros con alta precisión. Es importante destacar que la relación del proyecto con esta área de conocimiento será a través del uso de modelos ya existentes y pre-entrenados, y servicios de terceros como \textit{Amazon Rekognition} \cite{amazon_rekognition}, que permiten realizar la validación de identidad de los usuarios a través de su API. Esto para buscar un enfoque práctico y aplicado en el uso de tecnologías avanzadas de reconocimiento facial, sin necesidad de desarrollar algoritmos desde cero.
 
-% \subsection{Trabajos similares}
+\subsection{Trabajos similares}
 
 % Indique al menos tres trabajos similares con sus respectivas referencias, debe de indicar cómo se relacionan y cómo se diferencian de cada uno.
+
 
 \section{Planteamiento del problema}
 
@@ -119,7 +120,6 @@ En este apartado se definen los objetivos del proyecto, tanto el objetivo genera
 
 % Recordar que todos los objetivos deben contener el qué, el para y el cómo
 
-
 \subsection{Objetivo general}
 % El objetivo general responde de manera directa el problema en concreto
 Desarrollar un sistema de control de acceso para gimnasios mediante el uso de técnicas de reconocimiento facial, con el fin de mejorar la seguridad y eficiencia en la validación de membresías, utilizando una plataforma de \textit{hardware} embebido con un sistema operativo personalizado y de propósito específico para garantizar la optimización de recursos y la integración con el sistema de gestión de Fito App.
@@ -158,19 +158,20 @@ El alcance del proyecto incluye:
 El proyecto no contempla el desarrollo de modelos de reconocimiento facial propios, ya que se utilizarán servicios preexistentes. Tampoco se considera como parte del alcance la integración con mecanismos físicos de cierre o apertura de puertas, el enfoque se centra en la validación y registro digital del acceso y en una retroalimentación adecuada al usuario.
 
 \subsection{Entregables}
-% Realice una tabla en donde se evidencie cada entregable para cada objetivo
+En la \textit{Tabla \ref{tab:deliverables}}, se resumen los entregables del proyecto en función de los objetivos específicos planteados.
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{p{1.5cm}|p{4.5cm}|p{8cm}}
-    \hline
-    \textbf{Obj.} & \textbf{Entregable} & \textbf{Descripción} \\ \hline
-    \textbf{OE1} & Documento de arquitectura & Especificación de la arquitectura hardware-software del sistema embebido, incluyendo diagramas y justificación técnica. \\ \hline
-    \textbf{OE2} & Módulo de reconocimiento facial & Aplicación funcional que capture imágenes, valide identidades mediante un servicio de reconocimiento facial y brinde retroalimentación al usuario por medio de señales auditivas (buzzer) y visuales (pantalla). \\ \hline
-    \textbf{OE3} & Módulo de reportes & Interfaz de visualización web integrada al sistema de Fito App para mostrar estadísticas de acceso a los administradores. \\ \hline
-    \textbf{OE4} & Informe de pruebas de rendimiento & Documento con los resultados de pruebas realizadas en entorno real, incluyendo métricas de latencia y precisión. \\ \hline
+        \hline
+        \textbf{Obj.} & \textbf{Entregable} & \textbf{Descripción} \\ \hline
+        \textbf{OE1} & Documento de arquitectura & Especificación de la arquitectura hardware-software del sistema embebido, incluyendo diagramas y justificación técnica. \\ \hline
+        \textbf{OE2} & Módulo de reconocimiento facial & Aplicación funcional que capture imágenes, valide identidades mediante un servicio de reconocimiento facial y brinde retroalimentación al usuario por medio de señales auditivas (buzzer) y visuales (pantalla). \\ \hline
+        \textbf{OE3} & Módulo de reportes & Interfaz de visualización web integrada al sistema de Fito App para mostrar estadísticas de acceso a los administradores. \\ \hline
+        \textbf{OE4} & Informe de pruebas de rendimiento & Documento con los resultados de pruebas realizadas en entorno real, incluyendo métricas de latencia y precisión. \\ \hline
     \end{tabular}
     \caption{Entregables del proyecto según objetivo específico}
+    \label{tab:deliverables}
 \end{table}
     
 
@@ -178,7 +179,7 @@ El proyecto no contempla el desarrollo de modelos de reconocimiento facial propi
 El desarrollo del proyecto se verá influenciado por diversas limitaciones que podrían afectar su ejecución y resultados. A continuación se enumeran las principales limitaciones identificadas:
 
 \begin{enumerate}
-    \item La ejecución del proyecto deberá hacerse en un lapso de 16 semanas, es decir, un semestre lectivo del Instituto Tecnológico de Costa Rica, planteado para iniciarse el 10 de febrero del 2025.
+    \item La ejecución del proyecto deberá hacerse en un lapso de 16 semanas, es decir, un semestre lectivo del ITCR, planteado para iniciarse el 10 de febrero del 2025.
     \item La organización cuenta con un dispositivo \textit{Raspberry Pi 4 Model B}, del cual se dispone para el desarrollo del proyecto de ser necesario. El resto de componentes del sistema deberán ser adquiridos externamente. En la etapa de diseño deberá de tomarse la decisión sobre la plataforma de \textit{hardware} y componentes que se utilizará.
     \item Es posible que adquisición del \textit{hardware} necesario para el proyecto implique hacer una compra internacional, lo que supone una limitación en cuanto al tiempo de latencia asociado al proceso de envío y entrega de los producto.
     \item La organización cuenta con un presupuesto limitado para la ejecución del proyecto, lo que podría restringir la adquisición de ciertos componentes o servicios necesarios para el desarrollo del sistema.
