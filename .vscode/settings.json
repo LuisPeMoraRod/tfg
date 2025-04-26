@@ -1,8 +1,22 @@
 {
   "latex-workshop.latex.recipes": [
     {
+      "name": "Full Build (pdflatex + bibtex + nomencl)",
+      "tools": [
+        "pdflatex",
+        "bibtex",
+        "makeindex-nomencl",
+        "pdflatex",
+        "pdflatex"
+      ]
+    },
+    {
       "name": "pdflatex ➞ makeindex (nomencl) ➞ pdflatex ×2",
       "tools": ["pdflatex", "makeindex-nomencl", "pdflatex", "pdflatex"]
+    },
+    {
+      "name": "pdflatex ➞ bibtex ➞ pdflatex ×2",
+      "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
     }
   ],
   "latex-workshop.latex.tools": [
@@ -20,6 +34,12 @@
       "name": "makeindex-nomencl",
       "command": "makeindex",
       "args": ["%DOCFILE%.nlo", "-s", "nomencl.ist", "-o", "%DOCFILE%.nls"]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"]
     }
-  ]
+  ],
+  "latex-workshop.latex.recipe.default": "Full Build (pdflatex + bibtex + nomencl)"
 }
