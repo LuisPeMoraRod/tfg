@@ -11,7 +11,7 @@
 
 En la última década, el crecimiento de la industria del \textit{fitness} ha impulsado una mayor demanda de servicios personalizados y sistemas tecnológicos que optimicen la gestión de gimnasios y centros deportivos. Esta evolución ha motivado a las organizaciones a implementar soluciones innovadoras para mejorar la experiencia del usuario y aumentar su eficiencia operativa. Sin embargo, uno de los desafíos comunes en gimnasios de mediana y gran escala es la necesidad de un sistema de control del acceso de sus clientes a las instalaciones, que facilite la validación de sus respectivas membresías de una forma segura y automatizada, optimizando así el uso de recursos y protegiendo la seguridad de los usuarios.
 
-El presente proyecto propone desarrollar un sistema de control de acceso basado en reconocimiento facial, diseñado específicamente para gimnasios y centros de \textit{fitness} que utilizan los servicios de \textbf{Fito App}, una \textit{start up} tecnológica costarricense enfocada en ofrecer soluciones \textit{SaaS} para la administración de dichos establecimientos. Este sistema permitirá validar la identidad de los usuarios que ingresen al gimnasio, de forma automática y sin contacto, asegurando que solo aquellos con una membresía activa puedan acceder a las instalaciones. A través de un sistema embebido de propósito específico, el proyecto integra tecnologías de reconocimiento facial y hardware de relativo bajo costo (en relación a otras alternativas del mercado), con el resto de la infraestructura de Fito App, lo que permitirá una gestión centralizada y eficiente de los datos de los usuarios. Este proyecto busca no solo mejorar la seguridad y eficiencia del control de acceso en gimnasios, sino también posicionar a Fito App como una alternativa competitiva e innovadora en el mercado de sistemas de gestión para el sector \textit{fitness}. 
+El presente proyecto propone desarrollar un sistema de control de acceso basado en reconocimiento facial, diseñado específicamente para gimnasios y centros de \textit{fitness} que utilizan los servicios de \textbf{Fito App}, una \textit{start up} tecnológica costarricense enfocada en ofrecer soluciones \textit{SaaS} para la administración de dichos establecimientos. Este sistema permitirá validar la identidad de los usuarios que ingresen al gimnasio, de forma automática y sin contacto, asegurando que solo aquellos con una membresía activa puedan acceder a las instalaciones. A través de un sistema embebido de propósito específico, el proyecto integra tecnologías de reconocimiento facial y hardware de relativo bajo costo (con relación a otras alternativas del mercado), con el resto de la infraestructura de Fito App, lo que permitirá una gestión centralizada y eficiente de los datos de los usuarios. Este proyecto busca no solo mejorar la seguridad y eficiencia del control de acceso en gimnasios, sino también posicionar a Fito App como una alternativa competitiva e innovadora en el mercado de sistemas de gestión para el sector \textit{fitness}. 
 
 
 \section{Antecedentes del proyecto}
@@ -54,10 +54,106 @@ La validación de identidad se realizará mediante técnicas de reconocimiento f
 
 \subsection{Trabajos similares}
 
-
-
 % Indique al menos tres trabajos similares con sus respectivas referencias, debe de indicar cómo se relacionan y cómo se diferencian de cada uno.
 
+Debido a que la naturaleza de la organización en la que se desarrolla el proyecto es la de un emprendimiento tecnológico en sus primeras etapas, se busca que el producto resultante represente un aporte significativo a su proceso de generar tracción comercial y presencia en el mercado local de sistemas de gestión para gimnasios. En ese sentido, el presente apartado se enfoca en describir a otras soluciones que han sido desarrolladas en el área de control de acceso para centros de \textit{fitness}, y que podrían considerarse como competidores directos o indirectos de Fito App. Estas alternativas se han identificado a partir de un análisis de mercado realizado por el equipo de trabajo de la organización.
+
+% En la segunda categoría están opciones que sí se integran con el resto del sistema. En estas destacan la de Latinsoft, MNT, Olimpiac. También WStudio tiene un sistema de reconocimiento facial
+
+Como resultado de dicho análisis de mercado, se identificó que las alternativas de sistemas de control de acceso que existen actualmente en el mercado local, pueden clasificarse en dos categorías: las que funcionan de forma independiente y las que se integran con el sistema de gestión que ya usa el gimnasio. 
+
+Los sistemas independientes, al no poder integrarse con el resto de la gestión administrativa, tienen la gran desventaja de que no pueden sincronizar la información de los usuarios, lo que implica que no contemplen el estado de la membresía de cada cliente al validar su acceso. Esto puede llevar a que personas que no tengan una membresía activa, ya sea porque se atrasaron con el pago o simplemente dejaron de pagar, puedan seguir ingresando a las instalaciones si en algún momento fueron registradas en el sistema. Para evitar esto, se requiere que el gimnasio esté constantemente actualizando la información de los usuarios activos en el sistema de control de acceso, lo que representa un esfuerzo adicional y puede llevar a errores humanos.
+
+En esta categoría se encuentran opciones como las que ofrece \textit{Daosafe Technology Co., Ltd.} \cite{daosafe}, una empresa fundada en China, que fabrica sistemas de seguridad para la entrada y salida de personas de edificios y espacios de acceso restringido. En particular, el modelo \textit{DS112 Tripod Turnstile} es un torniquete de acceso peatonal de alta durabilidad, diseñado para controlar de manera segura y eficiente, el ingreso de personas mediante un torniquete de brazos giratorios. Tiene capacidad de integración a múltiples dispositivos de control, tales como lectores de tarjeta, de huella, de código QR o de reconocimiento facial \cite{daosafe_ds112}. En la \textit{Figura \ref{fig:daosafe_turnstile}} se muestra este modelo de torniquete \footnote{Imagen tomada del manual de referencia del modelo DS112 \cite{daosafe_ds112}.}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{fig/daosafe_turnstile.png}
+    \caption{Imagen del modelo DS112 Tripod Turnstile de Daosafe.}
+    \label{fig:daosafe_turnstile}
+\end{figure}
+
+
+
+Se identificó que algunos potenciales clientes de Fito App han adquirido este sistema (o similares), comprándolo directamente con el fabricante. El costo de adquisición reportado, ronda entre los \$2000 y \$2500 dólares, que incluye el torniquete y el sistema de control, para el cual se suele preferir el reconocimiento facial, aunque no es la única opción disponible. Estos gimnasios utilizan otros sistemas para la gestión administrativa, que no son compatibles con el sistema de control de acceso. Esta falta de integración entre los sistemas ha llevado a que los administradores de estos gimnasios hayan consultado a los proveedores de sus sistemas de gestión sobre la posibilidad de integrar el sistema de control de acceso, pero la respuesta ha sido negativa.
+
+Por otro lado, los sistemas que sí se integran con el resto de la gestión del gimnasio, permiten validar no solo la identidad del usuario, sino también el estado de su membresía. Esto hace que no solo sean más seguros, sino que también permiten generar estadísticas de acceso que sean accesibles desde el mismo sistema de gestión del gimnasio. Estas características hacen que los sistemas de esta categoría sean más atractivos, y por ende, los más comunes entre los gimnasios que fueron consultados.
+
+En esta categoría se encuentran opciones como las que ofrece la empresa \textit{Latinsoft}, con su sistema llamado \textit{Fitness 24/7 Gym} \cite{latinsoft}. Esta es una de las soluciones que tiene mayor adopción en los gimnasios medianos y grandes (ver la \textit{Tabla \ref{tab:sizes}} para entender la referencia de tamaño de un gimnasio) en el país. Para entender mejor el contexto de esta solución, se realizó una cotización directamente con un agente de ventas de dicha empresa, lo que permitió obtener información sobre sus características, precios y funcionalidades específicas. 
+
+El producto \textit{Fitness 24/7 Gym} se ofrece como un sistema de gestión de gimnasios general que se puede obtener pagando una membresía, cuyo costo dependerá del paquete seleccionado, pero que puede ir desde los \$75 mensuales para PYMEs, hasta alrededor de  \$500 mensuales para grandes empresas y paquetes personalizados. Las funcionalidades que incluye cada paquete son variables, y no se ahondará en ellas en este documento; sin embargo, si se quiere incluir la funcionalidad de control de acceso, el gimnasio deberá asumir el costo de la compra del hardware y el sistema mecánico de acceso que deseen. En la \textit{Tabla \ref{tab:latinsoft_devices}} se muestra un resumen de los precios aproximados de los diferentes dispositivos que \textit{Latinsoft} ofrece para el control de acceso. Posteriormente, en la \textit{Tabla \ref{tab:latinsoft_mechanical}} aparecen los precios de los diferentes sistemas mecánicos que se pueden integrar con los dispositivos anteriormente mencionados.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c}
+    \hline
+         \textbf{Dispositivo} & \textbf{Precio aproximado}\\
+         \hline
+         Control por pin numérico & \$15\\
+         Lector de código QR & \$90 - \$100\\
+         Lector de huella dactilar & \$120\\
+         Dispositivo de reconocimiento facial & \$1000 - \$1200\\
+         \hline
+    \end{tabular}
+    \captionsetup{justification=centering}
+    \caption{Precios aproximados de los dispositivos de control de acceso ofrecidos por el proveedor de \textit{Latinsoft}.}
+    \label{tab:latinsoft_devices}
+\end{table}
+
+El tipo de dispositivo que es más común entre los gimnasios que utilizan este servicio es el lector de huella dactilar. Se presume que esto es por ser el sistema que utiliza datos biométricos, lo que le da un mayor nivel de seguridad al sistema, pero que también es económicamente accesible. La otra opción con esta característica es el dispositivo de reconocimiento facial, pero la diferencia de precios puede llegar a ser hasta 10 veces mayor, lo que hace que no sea una opción viable para la mayoría de los gimnasios.
+
+Ahora bien, a partir de entrevistas realizadas a administradores de gimnasios que utilizan el sistema de \textit{Latinsoft}, se ha identificado que el lector de huella dactilar tiene un margen de error importante, lo que afecta la experiencia de los usuarios. No se ha cuantificado el porcentaje de error de los sensores de huella dactilar utilizados, pero sí se ha evidenciado un descontento general en los usuarios de estos sistemas. Desde el punto de vista de Fito App, esto representa una oportunidad de negocio si se logra implementar una solución de reconocimiento facial que sea capaz de operar de forma rápida, confiable y sin contacto físico; pero que también sea más económica que las alternativas actuales que ofrece \textit{Latinsoft}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c}
+    \hline
+         \textbf{Sistema mecánico} & \textbf{Precio aproximado}\\
+         \hline
+         Puerta automática accionada por magnetismo & \$400 - \$500\\
+         Torniquete de brazos giratorios & \$3800 - \$5000\\
+         \hline
+    \end{tabular}
+    \captionsetup{justification=centering}
+    \caption{Precios aproximados de los sistemas mecánicos de control de acceso ofrecidos por el proveedor de \textit{Latinsoft}.}
+    \label{tab:latinsoft_mechanical}
+\end{table}
+
+En cuanto a los sistemas mecánicos disponibles, se sabe que estos pueden ser utilizados con cualquiera de los dispositivos de control de acceso, por lo que su escogencia pasa por considerar factores como el costo, seguridad y facilidad de instalación. Es claro que la diferencia de precio entre la opción de puerta automática y el torniquete es considerable, siendo la segunda opción hasta 10 veces más cara. Esto hace que la combinación más popular entre los clientes de \textit{Latinsoft} sea la de lector de huella dactilar con puerta automática, ya que es la opción más económica y que ofrece un nivel de seguridad aceptable.
+
+Otra alternativa que se ha encontrado en el mercado local y que ha ganado popularidad en los últimos 2 años, es la de \textit{MNT} \cite{mnt}
+. Esta es una empresa costarricense que ofrece sistemas de control de acceso para cualquier tipo de establecimiento. Recientemente, se han enfocado en el sector de gimnasios al integrar su producto con un sistema de gestión de membresías básico. Su línea de productos se enfoca principalmente en torniquetes automáticos controlados por un sistema de reconocimiento facial. En la \text{Figura \ref{fig:mnt_turnstile}} se muestra una imagen de este sistema.\footnote{Imagen promocional tomada del sitio web de MNT \cite{mnt}.}
+
+Se utilizó la misma estrategia que con el caso anterior y se realizó una cotización directamente con un agente de ventas de \textit{MNT}. A diferencia de \textit{Fitness 24/7 Gym}, el sistema de \textit{MNT} no tiene un costo inicial de adquisición, sino que se ofrece a manera de alquiler con un costo mensual. En la \textit{Tabla \ref{tab:mnt_prices}} se resumen los precios de los paquetes ofrecidos en función de la cantidad de clientes que se manejen.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c}
+    \hline
+         \textbf{Cantidad de clientes} & \textbf{Costo mensual}\\
+         \hline
+         Hasta 300 & \$113\\
+         Hasta 1500 & \$296\\
+         Hasta 1500 con dos líneas de acceso & \$496\\
+         Hasta 1500 solo con dispositivo de reconocimiento facial (sin torniquete) & \$78\\
+         \hline
+    \end{tabular}
+    \captionsetup{justification=centering}
+    \caption{Precios de los paquetes de sistemas de control de acceso ofrecidos por \textit{MNT}.}
+    \label{tab:mnt_prices}
+\end{table}
+
+La información recopilada de la cotización con \textit{MNT} permitió concluir algunos puntos importantes. Primero, el modelo de negocio basado en un alquiler del sistema, en lugar de una sola inversión inicial elevada, puede ser de un mayor atractivo para los negocios que buscan una transición hacia estos sistemas que sea conveniente desde el punto de vista económico. En segundo lugar, se plantea la opción de solo adquirir el sistema de reconocimiento facial, sin el torniquete, lo que da lugar a cuestionarse si realmente es necesario contar con un sistema mecánico de control de acceso, o si el reconocimiento facial por sí solo es suficiente para satisfacer las necesidades de control de acceso. 
+
+En Fito App, se plantea la hipótesis comercial de que si se combina el sistema de reconocimiento facial con una barrera de tipo psicológica, como un altavoz que emita un sonido al momento de validar el acceso, se puede lograr un efecto similar al de una barrera física, pero con un costo mucho menor. Esto representaría una ventaja competitiva importante frente a otras soluciones del mercado. La intención es que el alcance de este proyecto permita validar esta hipótesis en etapas posteriores, y que se pueda evaluar la posibilidad de ofrecerlo como una opción adicional a los gimnasios que utilicen el sistema de Fito App. 
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{fig/mnt.png}
+    \caption{Imagen del sistema de control de acceso que ofrece MNT.}
+    \label{fig:mnt_turnstile}
+\end{figure}
 
 \section{Planteamiento del problema}
 
@@ -114,11 +210,8 @@ En síntesis, el proyecto busca atacar el problema de los ingresos no autorizado
 
 Dicho esto, se considera que una solución de reconocimiento facial que sea capaz de operar de forma rápida, confiable y sin contacto físico, mejorando la seguridad y comodidad para los usuarios, le daría una ventaja competitiva al producto. El desarrollo del producto descrito en este documento busca desarrollar un sistema optimizado que minimice la latencia en el procesamiento de reconocimiento facial y se integre eficientemente con el sistema de gestión de membresías de Fito App, con un enfoque en la mantenibilidad y escalabilidad, aumentando así su competitividad en el mercado y su valor para los gimnasios que tengan dicha necesidad.
 
-\newpage
 \section{Objetivos del proyecto}
 En este apartado se definen los objetivos del proyecto, tanto el objetivo general como los específicos. 
-
-
 
 % Recordar que todos los objetivos deben contener el qué, el para y el cómo
 
@@ -144,6 +237,7 @@ Los objetivos específicos se asocian con un identificador único para poder ser
 
 \end{enumerate}
 
+\newpage
 \section{Alcances, entregables y limitaciones del proyecto.}
 En esta sección se describen los alcances, entregables y limitaciones del proyecto, con el objetivo de delimitar claramente lo que se espera lograr, los productos que se generarán como resultado del desarrollo y las restricciones que podrían influir en la ejecución del mismo.
 
@@ -152,7 +246,7 @@ El proyecto contempla el diseño, implementación e integración de un sistema d
 
 El alcance del proyecto incluye:
 \begin{itemize}
-    \item El diseño e implementación de la arquitectura de hardware y software del sistema embebido.
+    \item El diseño e implementación de la arquitectura de hardware y software del sistema embebido, incluyendo su sistema operativo personalizado.
     \item El desarrollo del módulo de captura y reconocimiento facial para validación de acceso.
     \item La implementación de un mecanismo de retroalimentación auditiva y visual para el usuario al momento de validar su acceso.
     \item La integración con el \textit{backend} de Fito App para registrar accesos y generar estadísticas.
