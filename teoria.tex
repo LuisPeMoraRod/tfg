@@ -1,5 +1,46 @@
 \chapter{Marco teórico}
 \label{ch:marco}
 
-WIP...
+El éxito en el diseño y la implementación de un sistema de control de acceso basado en reconocimiento facial depende, en gran medida, de la solidez conceptual que sustente cada decisión de ingeniería. Por ello, en este capítulo se presentan los conceptos fundamentales que guiarán el desarrollo del sistema. Se articulan las definiciones, los modelos y buenas prácticas necesarias para justificar la arquitectura propuesta, orientar la selección de tecnologías y sustentar los criterios de validación.
 
+En consecuencia con la naturaleza multidisciplinaria del sistema, que combina \textit{hardware} especializado, algoritmos de inteligencia artificial y servicios distribuidos, el capítulo integra conceptos clave de diversas áreas, incluyendo:
+
+\begin{enumerate}
+    \item Sistemas embebidos
+    \item Sistemas operativos embebidos y \textit{Yocto Project}
+    \item Internet de las Cosas, computación en la nube y procesamiento de datos biométricos
+    \item Algoritmos de reconocimiento y detección facial
+\end{enumerate}
+
+Las secciones posteriores profundizarán en sus respectivos ejes temáticos y se describirán los elementos críticos que orientan la solución propuesta. Además, se analizan las relaciones conceptuales entre los diferentes temas mediante un mapa conceptual. De esta forma, el marco teórico no solo contextualiza el trabajo, sino que también sirve de referencia para contrastar la implementación del proyecto con el estado del arte.
+
+\section{Sistemas embebidos}
+Un sistema embebido, como Wolf define en \cite{wolf_embedded_2012}, \textit{es un dispositivo que incorpora una computadora programable, pero que no está destinado a funcionar como una computadora de propósito general}. Es un conjunto de componentes de hardware y software, y quizás componentes mecánicos, dedicados a realizar una función específica, o un conjunto acotado de funciones, dentro de un sistema mayor, y que generalmente opera con recursos limitados y bajo requisitos estrictos de confiabilidad y tiempo real \cite{barr_embedded_1999}.
+
+Los sistemas embebidos son ubicuos en la vida cotidiana, y se encuentran en una amplia variedad de aplicaciones. Su diseño y aplicación son una necesidad fundamental para múltiples áreas de la ingeniería, pues dispositivos como automóviles, teléfonos móviles y electrodomésticos dependen en gran medida de microprocesadores embebidos. Para integrar estos componentes en un sistema, los departamentos de ingeniería deben ser capaces de identificar tareas computacionales específicas dentro del producto, diseñar una plataforma de hardware con capacidad de entrada/salida que permita ejecutar dichas tareas, e implementar el software que las coordine de forma eficiente \cite{wolf_embedded_2012}. 
+
+El diseño de sistemas embebidos enfrenta desafíos significativos que van más allá de la mera funcionalidad. Según Jebril y Abu Al-Haija, los sistemas embebidos deben operar bajo restricciones físicas y temporales estrictas, lo que complica su diseño y verificación \cite{jebril_challenges_2017}. Entre los retos más relevantes destacan: la selección adecuada del hardware para cumplir simultáneamente con los requisitos de desempeño y las limitaciones presupuestarias; el cumplimiento estricto de plazos de respuesta en aplicaciones sensibles al tiempo; la minimización del consumo energético, especialmente en dispositivos alimentados por batería; y la necesidad de asegurar confiabilidad en entornos de operación continua o críticos \cite{wolf_embedded_2012}.  
+
+Adicionalmente, se espera que muchos de estos sistemas sean escalables y actualizables, lo cual añade complejidad al diseño inicial. Estos retos, que no suelen presentarse en la misma magnitud en sistemas de propósito general, requieren un enfoque metodológico riguroso y una comprensión profunda de la interacción entre hardware, software y entorno de operación.
+
+\subsection{Características principales}
+
+Los rasgos distintivos de los sistemas embebidos comúnmente citados en la literatura consultada se resumen en la siguiente tabla: 
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|p{10cm}}
+    \hline
+         \textbf{Característica} & \textbf{Descripción}\\
+         \hline
+         Restricción de recursos & CPU, memoria y energía limitadas obligan a optimizar código y hardware \cite{henriksson_2006}.\\
+         Propósito  específico & El software se diseña para una tarea concreta (p. ej., validar credenciales biométricas) \cite{wolf_embedded_2012}.\\
+         Operación en tiempo real & Se exige cumplir plazos máximos de respuesta (determinismo) \cite{shyamasundar_validating_2001}.\\
+         Alta confiabilidad & El dispositivo suele operar de forma autónoma y continua, por lo que los fallos son inaceptables \cite{windriver_embedded_security}.\\
+         Integración hardware-software & El diseño busca optimizar electrónica, sistema operativo y aplicación de manera conjunta \cite{wolf_embedded_2012}.\\
+         \hline
+    \end{tabular}
+    \captionsetup{justification=centering}
+    \caption{Principales características de los sistemas embebidos}
+    \label{tab:embedded_characteristics}
+\end{table}
