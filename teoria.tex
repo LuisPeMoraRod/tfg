@@ -15,7 +15,7 @@ En consecuencia con la naturaleza multidisciplinaria del sistema, que combina \t
 Las secciones posteriores profundizarán en sus respectivos ejes temáticos y se describirán los elementos críticos que orientan la solución propuesta. Además, se analizan las relaciones conceptuales entre los diferentes temas mediante un mapa conceptual. De esta forma, el marco teórico no solo contextualiza el trabajo, sino que también sirve de referencia para contrastar la implementación del proyecto con el estado del arte.
 
 \section{Sistemas embebidos}
-Un sistema embebido, como Wolf define en \cite{wolf_embedded_2012}, \textit{es un dispositivo que incorpora una computadora programable, pero que no está destinado a funcionar como una computadora de propósito general}. Es un conjunto de componentes de hardware y software, y quizás componentes mecánicos, dedicados a realizar una función específica, o un conjunto acotado de funciones, dentro de un sistema mayor, y que generalmente opera con recursos limitados y bajo requisitos estrictos de confiabilidad y tiempo real \cite{barr_embedded_1999}.
+Un sistema embebido, como Wolf define en \cite{wolf_embedded_2012}, ``\textit{es un dispositivo que incorpora una computadora programable, pero que no está destinado a funcionar como una computadora de propósito general}''. Es un conjunto de componentes de hardware y software, y quizás componentes mecánicos, dedicados a realizar una función específica, o un conjunto acotado de funciones, dentro de un sistema mayor, y que generalmente opera con recursos limitados y bajo requisitos estrictos de confiabilidad y tiempo real \cite{barr_embedded_1999}.
 
 Los sistemas embebidos son ubicuos en la vida cotidiana, y se encuentran en una amplia variedad de aplicaciones. Su diseño y aplicación son una necesidad fundamental para múltiples áreas de la ingeniería, pues dispositivos como automóviles, teléfonos móviles y electrodomésticos dependen en gran medida de microprocesadores embebidos. Para integrar estos componentes en un sistema, los departamentos de ingeniería deben ser capaces de identificar tareas computacionales específicas dentro del producto, diseñar una plataforma de hardware con capacidad de entrada/salida que permita ejecutar dichas tareas, e implementar el software que las coordine de forma eficiente \cite{wolf_embedded_2012}. 
 
@@ -25,22 +25,60 @@ Adicionalmente, se espera que muchos de estos sistemas sean escalables y actuali
 
 \subsection{Características principales}
 
-Los rasgos distintivos de los sistemas embebidos comúnmente citados en la literatura consultada se resumen en la siguiente tabla: 
+Los rasgos distintivos de los sistemas embebidos comúnmente citados en la literatura consultada, se resumen en la siguiente tabla: 
 
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{l|p{10cm}}
+% Replace the table environment with a longtable
+\begin{longtable}{l|p{10cm}}
+    \caption{Principales características de los sistemas embebidos} \label{tab:embedded_characteristics} \\
     \hline
-         \textbf{Característica} & \textbf{Descripción}\\
-         \hline
-         Restricción de recursos & CPU, memoria y energía limitadas obligan a optimizar código y hardware \cite{henriksson_2006}.\\
-         Propósito  específico & El software se diseña para una tarea concreta (p. ej., validar credenciales biométricas) \cite{wolf_embedded_2012}.\\
-         Operación en tiempo real & Se exige cumplir plazos máximos de respuesta (determinismo) \cite{shyamasundar_validating_2001}.\\
-         Alta confiabilidad & El dispositivo suele operar de forma autónoma y continua, por lo que los fallos son inaceptables \cite{windriver_embedded_security}.\\
-         Integración hardware-software & El diseño busca optimizar electrónica, sistema operativo y aplicación de manera conjunta \cite{wolf_embedded_2012}.\\
-         \hline
-    \end{tabular}
-    \captionsetup{justification=centering}
-    \caption{Principales características de los sistemas embebidos}
-    \label{tab:embedded_characteristics}
-\end{table}
+    \textbf{Característica} & \textbf{Descripción} \\
+    \hline
+    \endfirsthead
+    
+    \multicolumn{2}{c}{\tablename\ \thetable{}: Principales características de los sistemas embebidos (continuación)} \\
+    \hline
+    \textbf{Característica} & \textbf{Descripción} \\
+    \hline
+    \endhead
+    
+    \hline
+    \multicolumn{2}{r}{\textit{Continúa en la siguiente página}} \\
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    Restricción de recursos & CPU, memoria y energía limitadas obligan a optimizar código y hardware \cite{henriksson_2006}.\\
+    Propósito  específico & El software se diseña para una tarea concreta (p. ej., validar credenciales biométricas) \cite{wolf_embedded_2012}.\\
+    Operación en tiempo real & Se exige cumplir plazos máximos de respuesta (determinismo) \cite{shyamasundar_validating_2001}.\\
+    Alta confiabilidad & El dispositivo suele operar de forma autónoma y continua, por lo que los fallos son inaceptables \cite{windriver_embedded_security}.\\
+    Integración hardware-software & El diseño busca optimizar electrónica, sistema operativo y aplicación de manera conjunta \cite{wolf_embedded_2012}.\\
+\end{longtable}
+
+
+\subsection{Clasificación de los sistemas embebidos según su nivel de complejidad}
+
+Los sistemas embebidos pueden clasificarse según diversos criterios, siendo uno de los más relevantes el nivel de complejidad, el cual abarca tanto aspectos del hardware como del software, así como la interacción con el entorno físico. Respecto a esto, Lee y Seshia definen a los sistemas embebidos como ``\textit{computadoras menos visibles que interactúan con procesos físicos, típicamente en la forma de sistemas ciberfísicos con lazos de retroalimentación entre los procesos físicos y el software}'' \cite{lee_introduction_2017}. Esta interacción impone restricciones y retos específicos de diseño que varían según el tipo de sistema.
+
+Según Wolf \cite{wolf_embedded_2012}, los sistemas embebidos pueden clasificarse en cuatro niveles de complejidad creciente: 
+\begin{enumerate} 
+    \item \textbf{Sistemas embebidos autónomos simples}, tales como relojes digitales o termostatos, los cuales ejecutan una lógica de control elemental y suelen operar sin conectividad o interacción compleja.
+    \item \textbf{Sistemas de tiempo real}, los cuales requieren respuestas dentro de márgenes temporales estrictos. Estos sistemas son típicos en automóviles, dispositivos médicos y control industrial.
+    \item \textbf{Sistemas embebidos con múltiples procesadores o coprocesadores}, que integran arquitecturas heterogéneas optimizadas para tareas específicas, como decodificadores multimedia o estaciones base de comunicación.
+    \item \textbf{Sistemas embebidos distribuidos}, que incluyen componentes interconectados a través de redes, con alta complejidad de coordinación y sincronización, como los sistemas automotrices modernos y las infraestructuras inteligentes.
+\end{enumerate}
+
+Esta categorización puede también relacionarse con el grado de criticidad del sistema. Tal como señalan Lee y Seshia, ``\textit{los sistemas ciberfísicos enfrentan desafíos únicos, como la necesidad de garantizar propiedades temporales en un entorno concurrente, donde la corrección depende del comportamiento tanto computacional como físico}'' \cite{lee_introduction_2017}. Por tanto, mientras los sistemas simples pueden tolerar ciertos errores o retrasos, los sistemas complejos, como los sistemas embebidos distribuidos en aeronáutica o cirugía robótica, requieren garantías formales sobre su comportamiento.
+
+En resumen, el nivel de complejidad de un sistema embebido se encuentra determinado por factores como la criticidad temporal, la concurrencia, la heterogeneidad de hardware y la capacidad de integración en redes de sensores y actuadores. Esta clasificación no solo guía las decisiones de diseño, sino que también establece el enfoque metodológico a seguir en su desarrollo.
+
+\subsection{Aplicación de los sistemas embebidos en control de acceso}
+Los sistemas embebidos juegan un papel fundamental en los sistemas modernos de control de acceso, particularmente en aplicaciones donde se requiere una validación rápida, confiable y autónoma de la identidad del usuario. El uso de propósito específico, el bajo consumo energético y la capacidad de operar en tiempo real hacen que los sistemas embebidos sean ideales para este tipo de aplicaciones, donde se debe responder a eventos del entorno físico en un tiempo limitado.
+
+En el estudio de Guerbaoui et al., se presenta una plataforma funcional basada en una Raspberry Pi 3 y una cámara Intel RealSense D415, utilizando clasificadores en cascada Haar para la detección y reconocimiento facial. Este sistema fue desarrollado específicamente para operar en tiempo real y en condiciones variables de iluminación y ángulos de visión, mostrando un desempeño adecuado para aplicaciones de vigilancia en instalaciones sensibles \cite{guerbaoui_2025}.
+
+De manera complementaria, Kalkar et al. proponen una arquitectura distribuida en la que un sistema embebido realiza la detección de rostros a través de cámaras IP, y delega el reconocimiento facial a un servidor computacional. Se emplean modelos de detección como \textit{YOLO} y redes neuronales ligeras (\textit{MobileFaceNets}), lo que permite mantener un equilibrio entre velocidad y precisión. El diseño está orientado a aplicaciones en zonas restringidas como oficinas o centros educativos, donde se requiere monitoreo continuo con capacidad de respuesta en tiempo real \cite{kalkar_2020}.
+
+Finalmente, Hammami y Alhammami desarrollan un sistema de control de acceso robusto que combina reconocimiento facial con códigos QR cifrados, ejecutado completamente sobre una Raspberry Pi 4. Esta solución, además de mejorar la precisión del reconocimiento, permite validar la identidad de visitantes mediante códigos de un solo uso y registra todos los eventos de acceso en una base de datos local, logrando un rendimiento de 8.27 FPS (cuadros por segundo) en condiciones reales de uso \cite{hammami_2024}.
+
+Estos estudios evidencian que los sistemas embebidos son una opción viable y efectiva para implementar soluciones de control de acceso basadas en reconocimiento facial. La combinación de hardware especializado, algoritmos optimizados y la capacidad de operar en tiempo real permiten desarrollar sistemas que cumplen con los requisitos de seguridad y eficiencia necesarios en entornos críticos.
