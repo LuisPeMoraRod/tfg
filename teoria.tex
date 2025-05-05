@@ -1,4 +1,4 @@
-\chapter{Marco teórico}
+\chapter{Marco  de referencia teórico}
 \label{ch:marco}
 
 El éxito en el diseño y la implementación de un sistema de control de acceso basado en reconocimiento facial depende, en gran medida, de la solidez conceptual que sustente cada decisión de ingeniería. Por ello, en este capítulo se presentan los conceptos fundamentales que guiarán el desarrollo del sistema. Se articulan las definiciones, los modelos y buenas prácticas necesarias para justificar la arquitectura propuesta, orientar la selección de tecnologías y sustentar los criterios de validación.
@@ -27,7 +27,6 @@ Adicionalmente, se espera que muchos de estos sistemas sean escalables y actuali
 
 Los rasgos distintivos de los sistemas embebidos comúnmente citados en la literatura consultada, se resumen en la siguiente tabla: 
 
-% Replace the table environment with a longtable
 \begin{longtable}{l|p{10cm}}
     \caption{Principales características de los sistemas embebidos} \label{tab:embedded_characteristics} \\
     \hline
@@ -82,3 +81,75 @@ De manera complementaria, Kalkar et al. proponen una arquitectura distribuida en
 Finalmente, Hammami y Alhammami desarrollan un sistema de control de acceso robusto que combina reconocimiento facial con códigos QR cifrados, ejecutado completamente sobre una Raspberry Pi 4. Esta solución, además de mejorar la precisión del reconocimiento, permite validar la identidad de visitantes mediante códigos de un solo uso y registra todos los eventos de acceso en una base de datos local, logrando un rendimiento de 8.27 FPS (cuadros por segundo) en condiciones reales de uso \cite{hammami_2024}.
 
 Estos estudios evidencian que los sistemas embebidos son una opción viable y efectiva para implementar soluciones de control de acceso basadas en reconocimiento facial. La combinación de hardware especializado, algoritmos optimizados y la capacidad de operar en tiempo real permiten desarrollar sistemas que cumplen con los requisitos de seguridad y eficiencia necesarios en entornos críticos.
+
+\section{Sistemas operativos embebidos y \textit{Yocto Project}}
+
+
+Un sistema operativo embebido es un software especializado que proporciona servicios básicos como gestión de hardware, planificación de tareas y comunicación entre procesos, adaptados a las restricciones y necesidades particulares de un sistema embebido. Según Holt y Huang, estos sistemas están diseñados para ofrecer un conjunto mínimo pero suficiente de funciones orientadas a una aplicación específica, con alta eficiencia, bajo consumo de recursos y fiabilidad en tiempo real, permitiendo controlar periféricos y tareas críticas de forma predecible \cite{holt_2018_embedded_os}.
+
+Wang complementa esta definición al señalar que un sistema operativo embebido no es un sistema monolítico, sino un conjunto modular de funciones esenciales que permiten la ejecución coordinada y determinista de múltiples tareas en ambientes con limitaciones físicas y temporales \cite{wang_2023_embedded_RTOS}. Estas características lo diferencian de los sistemas operativos de propósito general, cuya arquitectura y funcionalidad están pensadas para entornos flexibles y de uso amplio, como computadoras personales o servidores.
+
+Con el aumento del poder de cómputo en las plataformas embebidas, Linux se ha convertido en una opción popular para este tipo de aplicaciones, gracias a su flexibilidad, código abierto y ecosistema maduro. Sin embargo, su uso requiere de adaptaciones importantes. Existen variantes como \textit{$\mu$Linux}, pensada para sistemas sin unidad de manejo de memoria (\textit{MMU}), y \textit{RTLinux}, que introduce una capa de emulación para manejar tareas críticas en tiempo real sobre el kernel de Linux estándar \cite{holt_2018_embedded_os} \cite{wang_2023_embedded_RTOS}.
+
+Estas adaptaciones, aunque poderosas, implican un nivel de complejidad elevado en la construcción de un sistema embebido, pues es necesario personalizar diversos aspectos críticos del sistema operativo, como el gestor de arranque, la configuración del kernel, la gestión de memoria y la integración de controladores específicos para el hardware utilizado. En este contexto, herramientas como \textit{Yocto Project} cobran una especial relevancia. 
+
+\subsection{Yocto Project: conceptos básicos y herramientas principales}
+
+El \textit{Yocto Project} es un marco de trabajo de código abierto que permite crear distribuciones GNU/Linux adaptadas a sistemas embebidos mediante la generación reproducible de imágenes y paquetes binarios \cite{yocto_overview_2025}. Su piedra angular es el \textbf{OpenEmbedded Build System}, cuyo motor de ejecución es \textit{BitBake}.  A grandes rasgos, los elementos fundamentales que es necesario comprender son los siguientes:
+
+\begin{itemize}
+    \item \textbf{BitBake}: herramienta de orquestación que interpreta \emph{meta‐datos} y ejecuta un grafo de tareas (parsing, configuración, compilación, empaquetado, etc.) respetando dependencias y permitiendo compilación en paralelo \cite{bitbake_manual_2025}.  Conceptualmente, es similar a la herramienta \texttt{make} en \texttt{C}, pero está especializada en la construcción de stacks embebidos y en la gestión de cruces de arquitectura (\emph{cross‑compilation}).
+      
+    \item \textbf{Poky}: distribución de referencia que incluye BitBake, un conjunto mínimo de capas (\texttt{meta}, \texttt{meta‐poky}, \texttt{meta‐yocto‐bsp}, entre otras) y herramientas auxiliares.  Poky sirve de punto de partida para crear distribuciones personalizadas evitando partir de cero \cite{yocto_overview_2025}. Esta herramienta es especialmente útil para desarrolladores que buscan una solución rápida y funcional, ya que proporciona una base sólida sobre la cual construir.
+    
+    \item \textbf{Capas (\emph{layers})}: estructura modular donde se agrupan colecciones coherentes de meta‑datos.  Cada capa encapsula una política (p.\,ej.\ \textit{Board Support Package}\footnote{Un \textit{Board Support Package (BSP)} es un conjunto de controladores, bibliotecas y firmware específicos que permiten que un sistema operativo funcione en una plataforma de hardware particular. En el contexto de Yocto, un BSP incluye los componentes necesarios para adaptar Linux a un hardware específico como Raspberry Pi o BeagleBone.}, distro, aplicación) y puede activarse o desactivarse de forma independiente, lo que favorece la escalabilidad y el mantenimiento.  El modelo de capas fomenta la separación entre hardware (BSP), políticas de distribución y aplicaciones \cite{yocto_overview_2025}.
+    
+    \item \textbf{Meta‑datos y \emph{recipes}}: los ficheros \verb|.bb| (\emph{recipes}) describen cómo obtener el código fuente, aplicar parches, compilar y empaquetar un componente.  Los ficheros \verb|.bbclass| (clases) encapsulan lógica común reutilizable, mientras que los \verb|.conf| establecen configuración global (máquina, distro, usuario).  Todo este conjunto constituye los \textit{meta-datos} que BitBake analiza para generar el grafo de tareas \cite{bitbake_manual_2025}.
+    
+    \item \textbf{Variables y sobrecargas}: la flexibilidad del sistema radica en la extensiva parametrización mediante variables (p.\,ej.\ \texttt{SRC\_URI}, \texttt{DEPENDS}) y en los mecanismos de sobrecarga (\texttt{override}) que permiten adaptar el comportamiento según máquina, arquitectura o política de distribución \cite{bitbake_manual_2025}.  
+    \item \textbf{SDK y eSDK}: el flujo de trabajo típico culmina en una imagen para el dispositivo y en un SDK extensible que facilita el desarrollo de aplicaciones en el host, manteniendo coherencia con la cadena de compilación empleada durante el build \cite{yocto_overview_2025}.  
+  \end{itemize}
+
+El uso de \textit{Yocto Project} permite a los desarrolladores crear distribuciones personalizadas de Linux para sistemas embebidos, optimizando el proceso de construcción y facilitando la integración de controladores y aplicaciones específicas. Esta flexibilidad es esencial para abordar los desafíos que presentan los sistemas embebidos, donde cada proyecto puede requerir un enfoque único en términos de hardware y software.
+
+\subsection{Ventajas y desventajas de utilizar \textit{Yocto} para sistemas de propósito específico}
+El uso de esta herramienta presenta beneficios, pero también desventajas que deben tomarse en cuenta para determinar su idoneidad en un proyecto específico. En la \textit{Tabla \ref{tab:yocto_pros_cons}} se contrastan los puntos más importantes encontrados en la literatura consultada \cite{streif_2016}, \cite{abbott_2018}, \cite{pera_2022}, \cite{karacali_2024}.
+
+
+\begin{longtable}{p{7.5cm}|p{7.5cm}}
+    \caption{Ventajas y desventajas del uso de \textit{Yocto} en sistemas embebidos} \label{tab:yocto_pros_cons} \\
+    \hline
+    \textbf{Ventajas} & \textbf{Desventajas} \\
+    \hline
+    \endfirsthead
+    
+    \multicolumn{2}{c}{\tablename\ \thetable{}: Ventajas y desventajas del uso de \textit{Yocto} en sistemas embebidos (continuación)} \\
+    \hline
+    \textbf{Ventajas} & \textbf{Desventajas} \\
+    \hline
+    \endhead
+    
+    \hline
+    \multicolumn{2}{r}{\textit{Continúa en la siguiente página}} \\
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    Flexibilidad y personalización granular mediante el concepto de \textit{layers} y \textit{recipes}, que permite generar distribuciones altamente adaptadas al hardware y a los requisitos de la aplicación & Curva de aprendizaje pronunciada: la complejidad de los metadatos y la multitud de variables/sobrecargas de BitBake exige experiencia avanzada \\
+    \hline
+    
+    Reproducibilidad garantizada: capacidad de recrear exactamente la misma imagen en diferentes momentos y entornos & Tiempo de construcción elevado: incluso con potentes sistemas de desarrollo, la construcción completa puede llevar horas \\
+    \hline
+    
+    Control total del tamaño y características del sistema operativo, eliminando componentes innecesarios y optimizando para entornos con recursos limitados & Requisitos de almacenamiento significativos para el entorno de desarrollo (mínimo 50GB recomendados) \\
+    \hline
+    
+    Soporte extenso para múltiples arquitecturas de hardware (ARM, MIPS, x86, PowerPC, etc.) & Menor disposición de documentación actualizada y casos de uso específicos en comparación con distribuciones genéricas \\
+    \hline
+    
+    Gestión centralizada de dependencias y parches a través del sistema de metadatos & Resolución de problemas compleja debido a la abstracción de las capas y la interacción de múltiples componentes \\
+    \hline
+    
+    Integración con herramientas de seguridad para análisis de vulnerabilidades en imágenes generadas & Mayor esfuerzo inicial de configuración comparado con distribuciones listas para usar como Raspbian o Debian \\
+\end{longtable}
