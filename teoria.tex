@@ -30,13 +30,13 @@ Los rasgos distintivos de los sistemas embebidos comúnmente citados en la liter
 \begin{longtable}{l|p{10cm}}
     \caption{Principales características de los sistemas embebidos} \label{tab:embedded_characteristics} \\
     \hline
-    \textbf{Característica} & \textbf{Descripción} \\
+    \multicolumn{1}{c|}{\textbf{Característica}} & \multicolumn{1}{c}{\textbf{Descripción}} \\
     \hline
     \endfirsthead
     
     \multicolumn{2}{c}{\tablename\ \thetable{}: Principales características de los sistemas embebidos (continuación)} \\
     \hline
-    \textbf{Característica} & \textbf{Descripción} \\
+    \multicolumn{1}{c|}{\textbf{Característica}} & \multicolumn{1}{c}{\textbf{Descripción}} \\
     \hline
     \endhead
     
@@ -119,13 +119,13 @@ El uso de esta herramienta presenta beneficios, pero también desventajas que de
 \begin{longtable}{p{7.5cm}|p{7.5cm}}
     \caption{Ventajas y desventajas del uso de \textit{Yocto} en sistemas embebidos} \label{tab:yocto_pros_cons} \\
     \hline
-    \textbf{Ventajas} & \textbf{Desventajas} \\
+    \multicolumn{1}{c|}{\textbf{Ventajas}} & \multicolumn{1}{c}{\textbf{Desventajas}} \\
     \hline
     \endfirsthead
     
     \multicolumn{2}{c}{\tablename\ \thetable{}: Ventajas y desventajas del uso de \textit{Yocto} en sistemas embebidos (continuación)} \\
     \hline
-    \textbf{Ventajas} & \textbf{Desventajas} \\
+    \multicolumn{1}{c|}{\textbf{Ventajas}} & \multicolumn{1}{c}{\textbf{Desventajas}} \\
     \hline
     \endhead
     
@@ -136,20 +136,17 @@ El uso de esta herramienta presenta beneficios, pero también desventajas que de
     \hline
     \endlastfoot
     
-    Flexibilidad y personalización granular mediante el concepto de \textit{layers} y \textit{recipes}, que permite generar distribuciones altamente adaptadas al hardware y a los requisitos de la aplicación & Curva de aprendizaje pronunciada: la complejidad de los metadatos y la multitud de variables/sobrecargas de BitBake exige experiencia avanzada \\
+    Flexibilidad y personalización granular mediante el concepto de \textit{layers} y \textit{recipes}, que permite generar distribuciones altamente adaptadas al hardware y a los requisitos de la aplicación & Curva de aprendizaje pronunciada: la complejidad de los metadatos y la multitud de variables/sobrecargas de BitBake exige experiencia avanzada \\ 
     \hline
     
-    Reproducibilidad garantizada: capacidad de recrear exactamente la misma imagen en diferentes momentos y entornos & Tiempo de construcción elevado: incluso con potentes sistemas de desarrollo, la construcción completa puede llevar horas \\
+    Reproducibilidad y trazabilidad del proceso de construcción gracias a BitBake y los mecanismos de \texttt{sstate‑cache}, lo que facilita auditorías y cumplimiento normativo. & Tiempos de compilación prolongados y elevado consumo de recursos (CPU, RAM, almacenamiento) en la primera construcción completa. \\
     \hline
-    
-    Control total del tamaño y características del sistema operativo, eliminando componentes innecesarios y optimizando para entornos con recursos limitados & Requisitos de almacenamiento significativos para el entorno de desarrollo (mínimo 50GB recomendados) \\
+
+    Soporte multiarquitectura y ecosistema industrial con BSPs mantenidos por la comunidad y por proveedores comerciales (Wind River, Intel, etc.) y versiones LTS. & Sobrecoste para prototipado rápido: en proyectos de ciclo de vida corto, herramientas más ligeras (p. ej. \textit{Buildroot}) pueden resultar más ágiles.\\
     \hline
-    
-    Soporte extenso para múltiples arquitecturas de hardware (ARM, MIPS, x86, PowerPC, etc.) & Menor disposición de documentación actualizada y casos de uso específicos en comparación con distribuciones genéricas \\
+
+    Generación automática de SDKs coherentes con la imagen de tiempo de ejecución, lo que simplifica la integración continua y el desarrollo de aplicaciones de usuario. & Depuración compleja de recetas y dependencias: los fallos pueden propagarse a través de múltiples capas, dificultando la localización del origen.\\
     \hline
-    
-    Gestión centralizada de dependencias y parches a través del sistema de metadatos & Resolución de problemas compleja debido a la abstracción de las capas y la interacción de múltiples componentes \\
-    \hline
-    
-    Integración con herramientas de seguridad para análisis de vulnerabilidades en imágenes generadas & Mayor esfuerzo inicial de configuración comparado con distribuciones listas para usar como Raspbian o Debian \\
+
+    Escalabilidad y mantenibilidad de proyectos de gran tamaño gracias al paradigma de capas, que favorece la modularidad y el versionado independiente de componentes. & Documentación extensa, pero dispersa: la rápida evolución de capas externas puede provocar incompatibilidades y fallos de descarga (\textit{fetch errors}).
 \end{longtable}
