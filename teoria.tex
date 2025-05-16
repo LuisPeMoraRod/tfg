@@ -8,8 +8,8 @@ En consecuencia con la naturaleza multidisciplinaria del sistema, que combina \t
 \begin{enumerate}
     \item Sistemas embebidos
     \item Sistemas operativos embebidos y \textit{Yocto Project}
-    \item Internet de las Cosas, computación en la nube y procesamiento de datos biométricos
-    \item Algoritmos de reconocimiento y detección facial
+    \item Computación en la nube y su papel en arquitecturas IoT
+    \item Herramientas de reconocimiento y detección facial
 \end{enumerate}
 
 Las secciones posteriores profundizarán en sus respectivos ejes temáticos y se describirán los elementos críticos que orientan la solución propuesta. Además, se analizan las relaciones conceptuales entre los diferentes temas mediante un mapa conceptual. De esta forma, el marco teórico no solo contextualiza el trabajo, sino que también sirve de referencia para contrastar la implementación del proyecto con el estado del arte.
@@ -48,10 +48,23 @@ Los rasgos distintivos de los sistemas embebidos comúnmente citados en la liter
     \endlastfoot
     
     Restricción de recursos & CPU, memoria y energía limitadas obligan a optimizar código y hardware \cite{henriksson_2006}.\\
+    \hline
+
     Propósito  específico & El software se diseña para una tarea concreta (p. ej., validar credenciales biométricas) \cite{wolf_embedded_2012}.\\
+    \hline
+
     Operación en tiempo real & Se exige cumplir plazos máximos de respuesta (determinismo) \cite{shyamasundar_validating_2001}.\\
+    \hline
+
     Alta confiabilidad & El dispositivo suele operar de forma autónoma y continua, por lo que los fallos son inaceptables \cite{windriver_embedded_security}.\\
+    \hline
+
     Integración hardware-software & El diseño busca optimizar electrónica, sistema operativo y aplicación de manera conjunta \cite{wolf_embedded_2012}.\\
+    \hline
+
+    Interfaz con el entorno & Tienen la capacidad de interactuar con el entorno a través de unidades de entrada/salida e interfaces de comunicación. \cite{wolf_embedded_2012}.\\
+
+
 \end{longtable}
 
 
@@ -67,7 +80,7 @@ Según Wolf \cite{wolf_embedded_2012}, los sistemas embebidos pueden clasificars
     \item \textbf{Sistemas embebidos distribuidos}, que incluyen componentes interconectados a través de redes, con alta complejidad de coordinación y sincronización, como los sistemas automotrices modernos y las infraestructuras inteligentes.
 \end{enumerate}
 
-Esta categorización puede también relacionarse con el grado de criticidad del sistema. Tal como señalan Lee y Seshia, ``\textit{los sistemas ciberfísicos enfrentan desafíos únicos, como la necesidad de garantizar propiedades temporales en un entorno concurrente, donde la corrección depende del comportamiento tanto computacional como físico}'' \cite{lee_introduction_2017}. Por tanto, mientras los sistemas simples pueden tolerar ciertos errores o retrasos, los sistemas complejos, como los sistemas embebidos distribuidos en aeronáutica o cirugía robótica, requieren garantías formales sobre su comportamiento.
+Esta categorización puede también relacionarse con el grado de criticidad del sistema. Tal como señalan Lee y Seshia, ``\textit{los sistemas ciberfísicos enfrentan desafíos únicos, como la necesidad de garantizar propiedades temporales en un entorno concurrente, donde la precisión depende del comportamiento tanto computacional como físico}'' \cite{lee_introduction_2017}. Por tanto, mientras los sistemas simples pueden tolerar ciertos errores o retrasos, los sistemas complejos, como los sistemas embebidos distribuidos en la industria automotriz o cirugía robótica, requieren garantías formales sobre su comportamiento.
 
 En resumen, el nivel de complejidad de un sistema embebido se encuentra determinado por factores como la criticidad temporal, la concurrencia, la heterogeneidad de hardware y la capacidad de integración en redes de sensores y actuadores. Esta clasificación no solo guía las decisiones de diseño, sino que también establece el enfoque metodológico a seguir en su desarrollo.
 
@@ -95,19 +108,19 @@ Estas adaptaciones, aunque poderosas, implican un nivel de complejidad elevado e
 
 \subsection{Yocto Project: conceptos básicos y herramientas principales}
 
-El \textit{Yocto Project} es un marco de trabajo de código abierto que permite crear distribuciones GNU/Linux adaptadas a sistemas embebidos mediante la generación reproducible de imágenes y paquetes binarios \cite{yocto_overview_2025}. Su piedra angular es el \textbf{OpenEmbedded Build System}, cuyo motor de ejecución es \textit{BitBake}.  A grandes rasgos, los elementos fundamentales que es necesario comprender son los siguientes:
+El \textit{Yocto Project} es un marco de trabajo de código abierto que permite crear distribuciones GNU/Linux adaptadas a sistemas embebidos mediante la generación reproducible de imágenes y paquetes binarios \cite{yocto_overview_2025}. Su piedra angular es el \textit{OpenEmbedded Build System}, cuyo motor de ejecución es \textit{BitBake}.  A grandes rasgos, los elementos fundamentales que es necesario comprender son los siguientes:
 
 \begin{itemize}
-    \item \textbf{BitBake}: herramienta de orquestación que interpreta \emph{meta‐datos} y ejecuta un grafo de tareas (parsing, configuración, compilación, empaquetado, etc.) respetando dependencias y permitiendo compilación en paralelo \cite{bitbake_manual_2025}.  Conceptualmente, es similar a la herramienta \texttt{make} en \texttt{C}, pero está especializada en la construcción de stacks embebidos y en la gestión de cruces de arquitectura (\emph{cross‑compilation}).
+    \item \textbf{BitBake}: herramienta de orquestación que interpreta \emph{meta‐datos} y ejecuta un grafo de tareas (\textit{parsing}, configuración, compilación, empaquetado, etc.) respetando dependencias y permitiendo compilación en paralelo \cite{bitbake_manual_2025}.  Conceptualmente, es similar a la herramienta \texttt{make} en \texttt{C}, pero está especializada en la construcción de stacks embebidos y en la gestión de cruces de arquitectura (\emph{cross‑compilation}).
       
-    \item \textbf{Poky}: distribución de referencia que incluye BitBake, un conjunto mínimo de capas (\texttt{meta}, \texttt{meta‐poky}, \texttt{meta‐yocto‐bsp}, entre otras) y herramientas auxiliares.  Poky sirve de punto de partida para crear distribuciones personalizadas evitando partir de cero \cite{yocto_overview_2025}. Esta herramienta es especialmente útil para desarrolladores que buscan una solución rápida y funcional, ya que proporciona una base sólida sobre la cual construir.
+    \item \textbf{Poky}: distribución de referencia que incluye BitBake; un conjunto mínimo de capas (\texttt{meta}, \texttt{meta‐poky}, \texttt{meta‐yocto‐bsp}, entre otras) y herramientas auxiliares.  Poky sirve de punto de partida para crear distribuciones personalizadas evitando partir de cero \cite{yocto_overview_2025}. Esta herramienta es especialmente útil para desarrolladores que buscan una solución rápida y funcional, ya que proporciona una base sólida sobre la cual construir.
     
     \item \textbf{Capas (\emph{layers})}: estructura modular donde se agrupan colecciones coherentes de meta‑datos.  Cada capa encapsula una política (p.\,ej.\ \textit{Board Support Package}\footnote{Un \textit{Board Support Package (BSP)} es un conjunto de controladores, bibliotecas y firmware específicos que permiten que un sistema operativo funcione en una plataforma de hardware particular. En el contexto de Yocto, un BSP incluye los componentes necesarios para adaptar Linux a un hardware específico como Raspberry Pi o BeagleBone.}, distro, aplicación) y puede activarse o desactivarse de forma independiente, lo que favorece la escalabilidad y el mantenimiento.  El modelo de capas fomenta la separación entre hardware (BSP), políticas de distribución y aplicaciones \cite{yocto_overview_2025}.
     
     \item \textbf{Meta‑datos y \emph{recipes}}: los ficheros \verb|.bb| (\emph{recipes}) describen cómo obtener el código fuente, aplicar parches, compilar y empaquetar un componente.  Los ficheros \verb|.bbclass| (clases) encapsulan lógica común reutilizable, mientras que los \verb|.conf| establecen configuración global (máquina, distro, usuario).  Todo este conjunto constituye los \textit{meta-datos} que BitBake analiza para generar el grafo de tareas \cite{bitbake_manual_2025}.
     
     \item \textbf{Variables y sobrecargas}: la flexibilidad del sistema radica en la extensiva parametrización mediante variables (p.\,ej.\ \texttt{SRC\_URI}, \texttt{DEPENDS}) y en los mecanismos de sobrecarga (\texttt{override}) que permiten adaptar el comportamiento según máquina, arquitectura o política de distribución \cite{bitbake_manual_2025}.  
-    \item \textbf{SDK y eSDK}: el flujo de trabajo típico culmina en una imagen para el dispositivo y en un SDK extensible que facilita el desarrollo de aplicaciones en el host, manteniendo coherencia con la cadena de compilación empleada durante el build \cite{yocto_overview_2025}.  
+    \item \textbf{SDK y eSDK}: el flujo de trabajo típico culmina en una imagen para el dispositivo y en un SDK extensible que facilita el desarrollo de aplicaciones para el ambiente objetivo, manteniendo coherencia con la cadena de compilación empleada durante el proceso de construcción \cite{yocto_overview_2025}.  
   \end{itemize}
 
 El uso de \textit{Yocto Project} permite a los desarrolladores crear distribuciones personalizadas de Linux para sistemas embebidos, optimizando el proceso de construcción y facilitando la integración de controladores y aplicaciones específicas. Esta flexibilidad es esencial para abordar los desafíos que presentan los sistemas embebidos, donde cada proyecto puede requerir un enfoque único en términos de hardware y software.
@@ -150,3 +163,104 @@ El uso de esta herramienta presenta beneficios, pero también desventajas que de
 
     Escalabilidad y mantenibilidad de proyectos de gran tamaño gracias al paradigma de capas, que favorece la modularidad y el versionado independiente de componentes. & Documentación extensa, pero dispersa: la rápida evolución de capas externas puede provocar incompatibilidades y fallos de descarga (\textit{fetch errors}).
 \end{longtable}
+
+En síntesis, aunque \textit{Yocto Project} constituye una alternativa de gran solidez y flexibilidad, capaz de orquestar dependencias complejas y sostener proyectos de gran escala, esa misma robustez conlleva una curva de aprendizaje pronunciada y procesos de compilación más extensos, lo que puede elevar los costos de adopción y mantenimiento. Ahora bien, para desarrollos de menor envergadura o prototipos que requieren iteraciones rápidas, es importante destacar que existen otras herramientas más livianas como \textit{Buildroot} que resultan ventajosas, ya que su simplicidad reduce la barrera de entrada y acelera la generación de imágenes, favoreciendo tiempos de desarrollo significativamente más cortos, como se señala en \cite{pera_2022}.
+
+\section{Internet de las Cosas y computación en la nube para sistemas embebidos}
+La implementación de sistemas de control de acceso basados en reconocimiento facial se posiciona en un contexto donde es necesario integrar múltiples tecnologías y paradigmas. En este sentido, se puede articular el sistema propuesto en torno a tres ejes tecnológicos, como lo son el Internet de las Cosas (IoT), la computación en la nube y el procesamiento de datos biométricos. En esta sección se describen los conceptos fundamentales de los dos primeros ejes, y cómo se interrelacionan para formar sistemas distribuidos. Posteriormente, en la siguiente sección se abordará el tema del procesamiento de datos biométricos y su relevancia en el contexto del reconocimiento facial.
+
+\subsection{Internet de las Cosas en los sistemas embebidos}
+Según Nimodiya y Ajankar, ``\textit{el Internet de las Cosas es simplemente una interacción entre el mundo físico y el mundo digital, y constituye una red de objetos físicos o personas llamadas ``cosas'' que están embebidas con software, electrónica, sensores y conectividad de red para recopilar y compartir datos}'' \cite{nimodiya_2022_IoTreview}. Por su parte, Dauda et al. resaltan que el paradigma IoT se ha convertido en un habilitador esencial de la innovación en numerosos ámbitos de la actividad humana, incluidos la manufactura, la agricultura, la salud, la educación, la seguridad y el transporte \cite{dauda_survey_2024}. 
+
+En el sector manufacturero, por ejemplo, sensores y actuadores conectados permiten supervisar el rendimiento de los equipos, rastrear inventarios en tiempo real, optimizar las cadenas de suministro y habilitar el mantenimiento predictivo, lo que reduce al mínimo los tiempos de inactividad, incrementa la eficiencia productiva y disminuye los costos operativos \cite{dauda_survey_2024}.
+
+Según una publicación de Statista, se prevé que el número de dispositivos IoT conectados duplicará los 15,9 mil millones de dispositivos en 2023, alcanzando los más de 32,1 mil millones en 2030 \cite{vailshery_iot_devices_2023}. Esta tendencia resalta el papel fundamental de la conectividad y la interoperabilidad entre dispositivos, lo que permite crear sistemas inteligentes y distribuidos, que son los que dominan el mercado actual.
+
+De acuerdo con Nimodiya y Ajankar, la literatura converge en un conjunto de rasgos que definen la esencia operativa, tecnológica y social del IoT. En la \textit{Tabla \ref{tab:iot_characteristics}} se resumen las características citadas en \cite{nimodiya_2022_IoTreview}.
+
+
+\begin{longtable}{l|p{10cm}}
+    \caption{Principales características del paradigma IoT} \label{tab:iot_characteristics} \\
+    \hline
+    \multicolumn{1}{c|}{\textbf{Característica}} & \multicolumn{1}{c}{\textbf{Descripción}} \\
+    \hline
+    \endfirsthead
+    
+    \multicolumn{2}{c}{\tablename\ \thetable{}: Principales características del paradigma IoT (continuación)} \\
+    \hline
+    \multicolumn{1}{c|}{\textbf{Característica}} & \multicolumn{1}{c}{\textbf{Descripción}} \\
+    \hline
+    \endhead
+    
+    \hline
+    \multicolumn{2}{r}{\textit{Continúa en la siguiente página}} \\
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    Inteligencia & Integración de algoritmos y cómputo embebido que dota a los dispositivos de capacidad para percibir su contexto, razonar y actuar de forma autónoma, habilitando la llamada \textit{inteligencia de ambiente}.\\
+    \hline
+
+    Conectividad & Habilita la accesibilidad a redes y la compatibilidad entre dispositivos heterogéneos, reforzando el valor de la información conforme al principio de la \textit{Ley de Metcalfe} \footnote{La \textit{Ley de Metcalfe} establece que el valor de una red es proporcional al cuadrado del número de usuarios conectados.}. \\
+    \hline
+
+    Naturaleza dinámica & Los nodos cambian de estado (activo, inactivo, conectado, desconectado) y de contexto (p. ej., posición, velocidad, temperatura), generando datos en tiempo real que requieren gestión continua.\\
+    \hline
+
+    Escala masiva & El número de dispositivos que deben ser gestionados y conectados entre sí, supera con creces al número de conexiones en la Internet tradicional, multiplicando los retos de direccionamiento, almacenamiento y procesamiento eficiente de grandes volúmenes de datos.\\
+    \hline
+
+    Sensado & Uso extensivo de sensores que capturan variables del entorno físico, posibilitando la creación de representaciones digitales y actualizadas del mundo real. \\
+    \hline
+
+    Heterogeneidad & Coexistencia de plataformas de hardware, protocolos de comunicación y modelos de datos diversos; el diseño de soluciones IoT debe garantizar interoperabilidad, extensibilidad y modularidad.\\
+    \hline
+
+    Seguridad & Los dispositivos y los datos están expuestos a un amplio espectro de amenazas; la protección de los servicios, redes y procesos exige arquitecturas de confianza, cifrado y gestión de la privacidad.\\
+    \hline
+
+
+\end{longtable}
+
+Estos atributos hacen que el IoT se haya convertido en un habilitador transversal de la innovación; su conectividad, capacidad de sensado y procesamiento de datos permiten la creación de sistemas inteligentes y distribuidos cuyas posibles aplicaciones son prácticamente ilimitadas. Esta variedad en su aplicabilidad, ha dado lugar a un ecosistema diverso de tecnologías, protocolos y arquitecturas, que van desde dispositivos de bajo consumo y bajo costo hasta sistemas complejos de análisis de datos en tiempo real.
+
+La literatura reciente señala que los sistemas IoT pueden clasificarse, a grandes rasgos, en tres estilos arquitectónicos complementarios: \textit{on-cloud} (en la nube), \textit{on-edge} (en el borde) y \textit{fog} (de niebla). Cada uno de estos estilos aborda diferentes aspectos del procesamiento y almacenamiento de datos, y su elección depende de los requisitos específicos de la aplicación, respondiendo a compromisos entre latencia, escalabilidad y consumo de recursos.
+
+\begin{itemize}
+    \item \textbf{Arquitectura \textit{on‑cloud}.} Todo el flujo de datos se encamina a plataformas en la nube con capacidad prácticamente ilimitada de cómputo y almacenamiento. Este modelo facilita la orquestación y el mantenimiento centralizados, así como la explotación de servicios avanzados (analítica masiva, \textit{machine learning as‑a‑service}, etc.), a costa de una mayor dependencia de la conectividad de red y de un retardo apreciable en aplicaciones sensibles al tiempo \cite{dauda_survey_2024}.
+    
+    \item \textbf{Arquitectura \textit{on‑edge}.}  El procesamiento se traslada a los dispositivos periféricos o a unidades locales con el fin de acercar la computación a la fuente de los datos.  Con ello se reduce la congestión debido a la red, se atenúa la latencia y se alivian problemas de privacidad, ya que, de ser necesario únicamente se envían a la nube datos filtrados o agregados.  Al mismo tiempo, el software debe enfrentarse a desafíos como la heterogeneidad y a las limitaciones de capacidad de cómputo de los nodos del borde \cite{dauda_survey_2024}.  
+    
+    \item \textbf{Arquitectura \textit{fog}.}  Actúa como un nivel intermedio y distribuido que combina la capacidad de integración global propia de la nube con la inmediatez del borde.  Los nodos \textit{fog} se ubican en la red de acceso y ofrecen servicios de cómputo, almacenamiento temporal y control de seguridad próximos al lugar donde se generan los eventos, al tiempo que mantienen sincronización con la nube para tareas de larga duración o con requisitos intensivos de recursos \cite{sethi_iot_2017}.  
+
+\end{itemize}
+
+Este abanico de estilos no debe entenderse como excluyente, sino como un complemento sobre el que el sistema complejo distribuye su lógica según sus restricciones concretas de latencia, ancho de banda, autonomía energética o confidencialidad de los datos. Ahora bien, en el caso de que el sistema requiera de un procesamiento intensivo de datos, como es el caso del reconocimiento facial, las arquitecturas de tipo \textit{on-cloud} y \textit{fog} se presentan como opciones atractivas debido a su capacidad para manejar grandes volúmenes de datos y realizar análisis complejos. En ambos casos, la computación en la nube se convierte en un componente esencial del sistema.
+
+\subsection{Computación en la nube y su papel en arquitecturas IoT}
+
+La computación en la nube se define, de acuerdo con la National Institute of Standards and Technology (NIST), como ``\textit{un modelo para permitir el acceso ubicuo, conveniente y bajo demanda a un conjunto compartido de recursos informáticos configurables (p. ej., redes, servidores, almacenamiento, aplicaciones y servicios) que pueden ser aprovisionados y liberados rápidamente con un esfuerzo mínimo de gestión o interacción del proveedor}'' \cite{nist_2011}. 
+
+Se establecen cinco características esenciales (autoservicio bajo demanda, amplio acceso a la red, agrupación de recursos, elasticidad rápida y servicio medido), tres modelos de servicio (IaaS, PaaS, SaaS) y cuatro modelos de despliegue (nube pública, privada, comunitaria e híbrida), sentando las bases conceptuales que distinguen a la nube frente a enfoques tradicionales ``\textit{on-premises}'' o locales \cite{nist_2011}.
+
+La migración desde centros de datos locales hacia la nube se explica, en gran medida, por los beneficios de elasticidad y factura por uso, descritos tempranamente por Armbrust et al. \cite{armbrust_2010} y reforzados por prácticas recomendadas en marcos industriales como el \textit{AWS Well-Architected Framework - IoT Lens} \cite{aws_2024}. En esta evolución, los servicios de infraestructura (IaaS) abstraen hardware y redes, las plataformas (PaaS) ofrecen entornos gestionados para desplegar aplicaciones sin lidiar con sistemas operativos subyacentes, y el software como servicio (SaaS) entrega soluciones completas listas para el usuario final. El resultado es un espectro de opciones que permiten a los sistemas IoT, delegar cargas intensivas de cómputo a la nube, aprovechar economías de escala y acortar el ``\textit{time-to-market}'' o tiempo de comercialización mediante el consumo de servicios gestionados.
+
+Para ejemplificar el papel de la computación en la nube en arquitecturas IoT, se puede considerar el trabajo de Thilakarathne et al. \cite{thilakarathne_2023}, que presenta una plataforma de gestión de cultivos para un invernadero de tomates que combina dos microcontroladores (NodeMCU y Arduino UNO) con una red de sensores ambientales y de suelo.  Los datos se envían mediante \textit{Wi-Fi} a la nube pública de \textit{Thinger.io}, donde se almacenan en \textit{buckets}, se visualizan en diagramas de seguimiento y se habilita el control remoto de actuadores (bombas peristálticas e iluminación).
+
+Esta arquitectura \textit{edge–cloud} ilustra la transición desde soluciones puramente locales a modelos PaaS/SaaS: el borde (microcontroladores) capta y pre-procesa la información, mientras que la nube ofrece capacidad elástica de cómputo, persistencia y difusión en tiempo real, simplificando la analítica y la automatización de decisiones agrícolas.
+
+Por su parte, Permana et al., describen en \cite{permana_2024} un sistema inteligente de control de acceso basado en cerraduras electrónicas gestionadas por un ESP32 que integra sensor de huellas y teclado.  El dispositivo registra eventos y recibe comandos a través de \textit{Firebase Realtime Database}, un servicio de \textit{Backend-as-a-Service} que abstrae la infraestructura subyacente.
+
+Gracias a la computación en la nube, el sistema logra sincronización inmediata entre la cerradura y la aplicación Android del usuario, mantiene históricos de actividad y aplica principios de \textit{Zero Trust} al delegar la autenticación y la autorización en servicios gestionados.  Este caso evidencia cómo la computación en la nube potencia a la IoT en escenarios de seguridad física, al proporcionar escalabilidad, baja latencia de notificación y alta disponibilidad sin necesidad de servidores locales.
+
+En síntesis, la incorporación de la computación en la nube en arquitecturas IoT aporta elasticidad para escalar el procesamiento según la variabilidad de la carga, alta disponibilidad gracias a infraestructuras redundantes distribuidas globalmente, y un modelo pago por uso que traslada el gasto de capital a gasto operativo.
+
+Además, los servicios gestionados, como PaaS o BaaS, reducen la complejidad de mantener servidores propios, facilitan la integración de \textit{dashboards} y analítica avanzada, acelerando la iteración de prototipos y el tiempo de comercialización.  En conjunto, estas ventajas permiten a los equipos de desarrollo concentrarse en la lógica de dominio mientras delegan la gestión de la infraestructura a proveedores de nube consolidados.
+
+No obstante, persisten retos significativos como: la latencia y la dependencia de conectividad que pueden comprometer funciones críticas en entornos con redes inestables \cite{andriulo_2024}; la protección de datos sensibles y el cumplimiento regulatorio exigen políticas de cifrado extremo a extremo, segmentación y \textit{Zero Trust} \cite{zanasi_2024}. Además, el riesgo de \textit{vendor lock-in}\footnote{El riesgo de \textit{vendor lock-in} se refiere a la dificultad de cambiar de proveedor de servicios en la nube debido a problemas como la dependencia de tecnologías muy específicas o incapacidad para migrar datos.} limita la portabilidad de las soluciones \cite{alhosban_2024}; y la naturaleza variable e impredecible de la facturación en la nube introduce incertidumbre presupuestaria \cite{deochake_2024}.
+
+Paralelamente, la sostenibilidad energética de grandes centros de datos y el dimensionamiento correcto entre lógica en el borde y en la nube continúan siendo áreas activas de investigación.  Estos desafíos impulsan el interés por arquitecturas híbridas \emph{edge/fog-cloud} y mecanismos estandarizados de interoperabilidad que mitiguen las limitaciones sin renunciar a los beneficios del paradigma de la computación en la nube \cite{shehabi_2024}, \cite{fernando_2025}.
+
+\section{Herramientas de reconocimiento y detección facial}
+
