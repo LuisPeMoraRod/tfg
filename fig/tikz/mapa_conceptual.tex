@@ -1,0 +1,68 @@
+\begin{tikzpicture}[
+    mindmap,
+    grow cyclic,
+    every node/.style = concept,
+    concept color = gray!40,
+    level 1/.append style = {sibling angle = 90},
+    level 3/.append style = {sibling angle = 35},
+]
+\node {Capítulo 2\\Marco teórico}
+child [concept color=green!90!black, edge from parent] { node {Sistemas\\embebidos}
+    child { node {Definición\\y propósito} }
+    child { node {Clasifica\-ción}
+        child { node {Simples} }
+        child { node {Tiempo real} }
+        child { node {Distribui\-dos} }
+    }
+    child { node {Casos de uso}}
+    child { node {Caracterís\-ticas} [clockwise from =-10]
+        child { node {Recursos limitados}}
+        child { node {Propósito específico} }
+        child { node {Tiempo real}}
+    }
+}
+child [concept color=red!65, edge from parent, every child node/.append style={text=white}] { node {SO embebidos\\\& Yocto}
+    child { node {Linux embebido} }
+    child { node {Yocto: BitBake,\\recipes, layers} }
+    child { node {Ventajas} 
+        child { node {Personali\-zación} }
+        child { node {Portabili\-dad} }
+        child { node {Comuni\-dad activa} }
+    }
+    child { node {Desventa\-jas} 
+        child { node {Curva de aprendizaje} }
+        child { node {Tiempo de compilación} }
+    }
+    child { node {Alternati\-va:\\Buildroot} }
+}
+child [concept color=blue!60, edge from parent, every child node/.append style={text=white}] { node {IoT \& Nube}
+    child { node {Paradig. IoT} 
+        [every child node/.append style={ scale=1.2}]
+        child { node {Caracte\-rísticas}}
+        child { node {Arqui: edge, fog, cloud} }
+    }
+    child { node {Computa\-ción en la Nube} 
+        [every child node/.append style={ scale=1.2}]
+        child { node {Beneficios} }
+        child { node {Retos} }
+        child { node {Modelos: IaaS, PaaS, SaaS} }
+    }
+}
+child [concept color=yellow, edge from parent] { node {Reconocim. y detección facial}
+    child { node {Modelos de detección} [every child node/.append style={ scale=1.2}]
+        child { node {Haar cascades} }
+        child {node {YOLO}}
+        child { node {YuNet} }    
+    }
+    child { node {Métricas } [every child node/.append style={ scale=1.2}]
+        child { node {Precisión} }
+        child { node {Latencia} }
+        child { node {FPS} }
+    }
+    child { node {Servicios de reconocimiento} [every child node/.append style={ scale=1.2}]
+        child { node {Amazon Rekognition} }
+        child { node {Azure Face API} }
+        child { node {Clarifai} }
+    }
+};
+\end{tikzpicture}

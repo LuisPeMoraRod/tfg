@@ -1,5 +1,3 @@
-
-
 % \documentclass is book
 \documentclass[12pt,twoside,letterpaper,openany]{book}
 
@@ -7,6 +5,7 @@
 \usepackage{ifthen}                     % provide if-then-else operators
 \usepackage{datetime}
 \usepackage{textcomp}
+
 % --------------------------------------------------------------------------
 % Global variables required in document formatting
 % --------------------------------------------------------------------------
@@ -56,6 +55,14 @@ de \number\year}
 
 % include all packages and define all required general macros
 \input{macros}
+
+% Load graphicx with draft/final option based on draftmode
+\ifthenelse{\boolean{draftmode}}
+  {\usepackage[draft]{graphicx}}
+  {\usepackage{graphicx}}
+
+\usepackage{tikz}
+\usetikzlibrary{mindmap}
 
 % allow equations to be splitted (breaked) into several pages
 \allowdisplaybreaks[3]

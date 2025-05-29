@@ -12,7 +12,16 @@ En consecuencia con la naturaleza multidisciplinaria del sistema, que combina \t
     \item Herramientas de reconocimiento y detección facial
 \end{enumerate}
 
-Las secciones posteriores profundizarán en sus respectivos ejes temáticos y se describirán los elementos críticos que orientan la solución propuesta. Además, se analizan las relaciones conceptuales entre los diferentes temas mediante un mapa conceptual. De esta forma, el marco teórico no solo contextualiza el trabajo, sino que también sirve de referencia para contrastar la implementación del proyecto con el estado del arte.
+La Figura \ref{fig:mapa_conceptual} ilustra los ejes temáticos que se desarrollarán en este capítulo, proporcionando una visión general de cómo se interrelacionan estos conceptos para formar la base teórica del sistema propuesto. La profundización en cada uno de estos ejes busca no solo contextualizar el trabajo, sino también establecer un marco de referencia que permita contrastar la implementación del proyecto con el estado del arte.
+
+\clearpage
+
+\begin{figure*}[h!]
+    \centering
+    \input{fig/tikz/mapa_conceptual.tex}
+    \caption{Mapa conceptual de los ejes temáticos del sistema propuesto.}
+    \label{fig:mapa_conceptual}
+\end{figure*}
 
 \section{Sistemas embebidos}
 Un sistema embebido, como Wolf define en \cite{wolf_embedded_2012}, ``\textit{es un dispositivo que incorpora una computadora programable, pero que no está destinado a funcionar como una computadora de propósito general}''. Es un conjunto de componentes de hardware y software, y quizás componentes mecánicos, dedicados a realizar una función específica, o un conjunto acotado de funciones, dentro de un sistema mayor, y que generalmente opera con recursos limitados y bajo requisitos estrictos de confiabilidad y tiempo real \cite{barr_embedded_1999}.
@@ -117,7 +126,7 @@ El \textit{Yocto Project} es un marco de trabajo de código abierto que permite
     
     \item \textbf{Capas (\emph{layers})}: estructura modular donde se agrupan colecciones coherentes de meta‑datos.  Cada capa encapsula una política (p.\,ej.\ \textit{Board Support Package}\footnote{Un \textit{Board Support Package (BSP)} es un conjunto de controladores, bibliotecas y firmware específicos que permiten que un sistema operativo funcione en una plataforma de hardware particular. En el contexto de Yocto, un BSP incluye los componentes necesarios para adaptar Linux a un hardware específico como Raspberry Pi o BeagleBone.}, distro, aplicación) y puede activarse o desactivarse de forma independiente, lo que favorece la escalabilidad y el mantenimiento.  El modelo de capas fomenta la separación entre hardware (BSP), políticas de distribución y aplicaciones \cite{yocto_overview_2025}.
     
-    \item \textbf{Meta‑datos y \emph{recipes}}: los ficheros \verb|.bb| (\emph{recipes}) describen cómo obtener el código fuente, aplicar parches, compilar y empaquetar un componente.  Los ficheros \verb|.bbclass| (clases) encapsulan lógica común reutilizable, mientras que los \verb|.conf| establecen configuración global (máquina, distro, usuario).  Todo este conjunto constituye los \textit{meta-datos} que BitBake analiza para generar el grafo de tareas \cite{bitbake_manual_2025}.
+    \item \textbf{Meta-datos y \emph{recipes}}: los ficheros \verb|.bb| (\emph{recipes}) describen cómo obtener el código fuente, aplicar parches, compilar y empaquetar un componente.  Los ficheros \verb|.bbclass| (clases) encapsulan lógica común reutilizable, mientras que los \verb|.conf| establecen configuración global (máquina, distro, usuario).  Todo este conjunto constituye los \textit{meta-datos} que BitBake analiza para generar el grafo de tareas \cite{bitbake_manual_2025}.
     
     \item \textbf{Variables y sobrecargas}: la flexibilidad del sistema radica en la extensiva parametrización mediante variables (p.\,ej.\ \texttt{SRC\_URI}, \texttt{DEPENDS}) y en los mecanismos de sobrecarga (\texttt{override}) que permiten adaptar el comportamiento según máquina, arquitectura o política de distribución \cite{bitbake_manual_2025}.  
     \item \textbf{SDK y eSDK}: el flujo de trabajo típico culmina en una imagen para el dispositivo y en un SDK extensible que facilita el desarrollo de aplicaciones para el ambiente objetivo, manteniendo coherencia con la cadena de compilación empleada durante el proceso de construcción \cite{yocto_overview_2025}.  
@@ -167,7 +176,8 @@ El uso de esta herramienta presenta beneficios, pero también desventajas que de
 En síntesis, aunque \textit{Yocto Project} constituye una alternativa de gran solidez y flexibilidad, capaz de orquestar dependencias complejas y sostener proyectos de gran escala, esa misma robustez conlleva una curva de aprendizaje pronunciada y procesos de compilación más extensos, lo que puede elevar los costos de adopción y mantenimiento. Ahora bien, para desarrollos de menor envergadura o prototipos que requieren iteraciones rápidas, es importante destacar que existen otras herramientas más livianas como \textit{Buildroot} que resultan ventajosas, ya que su simplicidad reduce la barrera de entrada y acelera la generación de imágenes, favoreciendo tiempos de desarrollo significativamente más cortos, como se señala en \cite{pera_2022}.
 
 \section{Internet de las Cosas y computación en la nube para sistemas embebidos}
-La implementación de sistemas de control de acceso basados en reconocimiento facial se posiciona en un contexto donde es necesario integrar múltiples tecnologías y paradigmas. En este sentido, se puede articular el sistema propuesto en torno a tres ejes tecnológicos, como lo son el Internet de las Cosas (IoT), la computación en la nube y el procesamiento de datos biométricos. En esta sección se describen los conceptos fundamentales de los dos primeros ejes, y cómo se interrelacionan para formar sistemas distribuidos. Posteriormente, en la siguiente sección se abordará el tema del procesamiento de datos biométricos y su relevancia en el contexto del reconocimiento facial.
+\label{sec:iot_cloud}
+La implementación de sistemas de control de acceso basados en reconocimiento facial se posiciona en un contexto donde es necesario integrar múltiples tecnologías y paradigmas. En este sentido, se puede articular el sistema propuesto en torno a tres ejes tecnológicos, como lo son el Internet de las Cosas (IoT), la computación en la nube y el procesamiento de datos biométricos. En esta sección se describen los conceptos fundamentales de los dos primeros ejes, y cómo se interrelacionan para formar sistemas distribuidos. Posteriormente, en la siguiente sección se abordará el tema del procesamiento de datos biométricos en el contexto de técnicas y herramientas de reconocimiento y detección facial.
 
 \subsection{Internet de las Cosas en los sistemas embebidos}
 Según Nimodiya y Ajankar, ``\textit{el Internet de las Cosas es simplemente una interacción entre el mundo físico y el mundo digital, y constituye una red de objetos físicos o personas llamadas ``cosas'' que están embebidas con software, electrónica, sensores y conectividad de red para recopilar y compartir datos}'' \cite{nimodiya_2022_IoTreview}. Por su parte, Dauda et al. resaltan que el paradigma IoT se ha convertido en un habilitador esencial de la innovación en numerosos ámbitos de la actividad humana, incluidos la manufactura, la agricultura, la salud, la educación, la seguridad y el transporte \cite{dauda_survey_2024}. 
@@ -264,3 +274,150 @@ Paralelamente, la sostenibilidad energética de grandes centros de datos y el di
 
 \section{Herramientas de reconocimiento y detección facial}
 
+El procesamiento y análisis automatizado de datos biométricos es un aspecto fundamental en el desarrollo de sistemas de control de acceso. Particularmente, los sistemas que utilizan la verificación de identidad por medio de aspectos faciales, suelen dividir el proceso en dos etapas: la detección de rostros y el reconocimiento facial. El propósito de esta sección es presentar una visión general de estas dos etapas, así como de las herramientas y técnicas más relevantes en el ámbito del reconocimiento facial.
+
+La detección facial se define como el procedimiento que, a partir de una imagen fija o un flujo de vídeo, localiza las regiones que contienen rostros humanos y las aísla del fondo y de otros objetos presentes en la escena, entregando como resultado la posición espacial del rostro mediante un recuadro o una máscara \cite{li_jain_2011}. Por su parte, el reconocimiento facial comprende el análisis del rostro previamente detectado para extraer un conjunto de características discriminantes (vector de rasgos) y compararlas con plantillas almacenadas en una base de datos, con el fin de verificar si corresponde a una identidad conocida o determinar la identidad más probable de la persona \cite{li_jain_2011}.
+
+\subsection{Algoritmos y modelos populares de detección facial}
+
+En las últimas dos décadas la detección automática de rostros ha evolucionado desde técnicas basadas en descriptores manuales hasta detectores profundos de una sola etapa. Algunas de las soluciones de mayor adopción académica e industrial son las siguientes:
+
+\begin{itemize}
+  \item \textbf{Viola--Jones / Haar Cascade}.  
+        Pionero en la detección en tiempo real mediante \emph{features} Haar y un clasificador \emph{AdaBoost} en cascada \cite{viola_jones_2001}.
+
+  \item \textbf{HOG + SVM (dlib)}.  
+        Emplea histogramas de gradientes orientados (HOG) y un clasificador lineal SVM; mantiene buena precisión con bajo coste computacional \cite{dalal_triggs_2005}.
+
+  \item \textbf{MTCNN}.  
+        Red convolucional en cascada que combina detección y alineamiento facial en un mismo flujo multi-tarea \cite{zhang_mtcnn_2016}.
+
+  \item \textbf{S$^3$FD}.  
+        Detector de una sola pasada (\emph{single-shot}) diseñado para ser invariante a la escala, especialmente robusto para rostros pequeños \cite{zhang_s3fd_2017}.
+
+  \item \textbf{BlazeFace}.  
+        Arquitectura ligera optimizada para GPU móviles, capaz de superar las 200 FPS en dispositivos de gama alta \cite{bazarevsky_blazeface_2019}.
+
+  \item \textbf{Familia YOLO (p.\,ej.\ YOLOv5-Face)}.  
+        Detectores de una sola pasada que combinan alta velocidad y buena exactitud; versiones afinadas para rostros añaden anclas y pérdidas específicas \cite{redmon_yolo_2016}.
+
+  \item \textbf{YuNet}.  
+        Detector ultraligero ($\sim$76 mil parámetros) diseñado para dispositivos \emph{edge}; alcanza 81 \% \textit{mAP} \footnote{El \textit{mAP} es el promedio de precisión (\textit{mean Average Precision}) utilizado para evaluar la precisión de los modelos de detección de objetos.} en el \textit{benchmark} WIDER FACE con una latencia de apenas 1.6 ms por imagen \cite{wu_yunet_2023}.
+
+\end{itemize}
+
+Los enfoques clásicos de detección facial se basan en la extración explícita de características (\textit{features}) ``hechas a mano'', tales como los descriptores Haar combinados con \textit{AdaBoost} \cite{viola_jones_2001} o histogramas de gradientes orientados  \cite{dalal_triggs_2005}. Estos métodos utilizan un proceso en el que los investigadores definen manualmente el conjunto de descriptores matemáticos que capturan rasgos visuales considerados relevantes, tales como bordes, texturas, contrastes de intensidad, o formas geométricas, antes de entrenar el clasificador. Una vez extraídas estas características, fijas y de dimensión limitada, se alimentan clasificadores ligeros, como \textit{AdaBoost} o SVM, que permiten detectar rostros en imágenes.
+
+Estos métodos, por lo general, ofrecen una ejecución muy ligera sobre CPU al no requerir operaciones convolucionales profundas. Sin embargo, su desempeño se degrada en presencia de variaciones de iluminación, obstrucciones parciales y poses fuera del plano, y suelen mostrar menores valores de precisión (mAP) en bases de datos desafiantes frente a los detectores modernos.
+
+En contraste, los detectores basados en aprendizaje profundo emplean redes neuronales convolucionales entrenadas de extremo a extremo y se dividen según su arquitectura, en esquemas de dos etapas (p. ej., MTCNN) y de una sola etapa (p. ej., YOLO, S$^3$FD). Estos modelos aprenden representaciones jerárquicas de características y exhiben un rendimiento superior ante variaciones de escala, rotación y obstrucciones, aunque requieren de un mayor consumo de recursos computacionales y, en muchos casos, demanda de aceleradores GPU o VPU para lograr latencias aceptables en tiempo real \cite{zhang_mtcnn_2016}, \cite{bazarevsky_blazeface_2019}, \cite{redmon_yolo_2016}.
+
+Ahora bien, la tendencia hacia arquitecturas ligeras y eficientes ha llevado al desarrollo de modelos como \textit{YuNet}, que equilibra minuciosamente exactitud y eficiencia, permitiendo su uso en dispositivos de bajo consumo energético. Este modelo prescinde del uso de anclas, que son comunes en los detectores de una sola etapa, y emplea una arquitectura totalmente basada en convoluciones separables en profundidad, complementada con un \textit{Tiny FPN} simplificado. Esto se traduce en únicamente 75 856 parámetros ($\sim$300 kB) y 149 MFLOPs para una entrada de $320 \times 320$ píxeles, cifras que lo situan por debajo de la quinta parte del tamaño de otros detectores ligeros \cite{wu_yunet_2023}.
+
+A pesar de su diseño compacto, el modelo YuNet alcanza un rendimiento competitivo, logrando 81.1 \% de mAP en el set de alta dificultad de WIDER FACE \footnote{WIDER FACE es un conjunto de datos de referencia para detección facial que agrupa más de 32 000 imágenes con casi 400 000 rostros anotados en condiciones extremadamente variadas de escala, pose, iluminación y oclusión, lo que lo convierte en el estándar más exigente para evaluar la robustez de los detectores modernos \cite{yang_widerface_2016}.} y registra una latencia media de 1,6 ms por imagen en CPU \textit{Intel i7-12700K}, lo que habilita velocidades superiores a 600 FPS en resoluciones habituales y elimina la necesidad de aceleradores GPU externos \cite{wu_yunet_2023}.
+
+En la \textit{Tabla \ref{tab:yunet_comparison}} se comparan las principales características de YuNet con otros detectores ligeros populares, como RetinaFace-0.25 y YOLO5-Face-n. En la tabla se subrayan los valores con mejor rendimiento en cada columna. Los modelos \textit{YuNet-s}, \textit{RetinaFace} y \textit{SCRFD-10g} se incluyen en la lista como referencia pero no se consideran para la comparación, ya que el primero es una versión reducida de YuNet y los otros dos son detectores de alta complejidad que por su tamaño y latencia no son adecuados para sistemas embebidos.
+
+\begin{scriptsize}
+    
+    \begin{longtable}{c|l|r|r|c|c|c|c}
+        \caption{Comparación de YuNet con otros detectores faciales (adaptado de \cite{wu_yunet_2023})}
+        \label{tab:yunet_comparison} \\
+        \hline
+        \multicolumn{1}{c|}{\textbf{Tamaño}} &
+        \multicolumn{1}{c|}{\textbf{Método}} &
+        \multicolumn{1}{c|}{\textbf{Num. Parámetros}} &
+        \multicolumn{1}{c|}{\textbf{FLOPs}} &
+        \multicolumn{1}{c|}{\textbf{AP$_{easy}$}} &
+        \multicolumn{1}{c|}{\textbf{AP$_{med}$}} &
+        \multicolumn{1}{c|}{\textbf{AP$_{hard}$}} &
+        \multicolumn{1}{c}{\textbf{Latencia}}\\
+        \multicolumn{1}{c|}{\textbf{imagen}} &
+        & \multicolumn{1}{c|}{(proporción)} &
+        \multicolumn{1}{c|}{(M)} &
+        & & & \multicolumn{1}{c}{(ms)}\\
+        \hline
+        \endfirsthead
+        
+        \multicolumn{8}{c}{\tablename\ \thetable{}: Comparación de YuNet con otros detectores faciales (continuación)}\\
+    \hline
+    \multicolumn{1}{c|}{\textbf{Tamaño}} &
+    \multicolumn{1}{c|}{\textbf{Método}} &
+    \multicolumn{1}{c|}{\textbf{Num. Parámetros}} &
+    \multicolumn{1}{c|}{\textbf{FLOPs}} &
+    \multicolumn{1}{c|}{\textbf{AP$_{easy}$}} &
+    \multicolumn{1}{c|}{\textbf{AP$_{med}$}} &
+    \multicolumn{1}{c|}{\textbf{AP$_{hard}$}} &
+    \multicolumn{1}{c}{\textbf{Latencia}}\\
+    \multicolumn{1}{c|}{\textbf{imagen}} &
+    & \multicolumn{1}{c|}{(proporción)} &
+    \multicolumn{1}{c|}{(M)} &
+    & & & \multicolumn{1}{c}{(ms)}\\
+    \hline
+    \endhead
+    
+    \hline
+    \multicolumn{8}{r}{\textit{Continúa en la siguiente página}}\\
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    %------------ 320 × 320 ----------------
+    320$\times$320 & SCRFD-0.5g & 631\,410 (8.32×) & 195 & 0.850 & 0.754 & 0.372 & 3.4\\
+    & RetinaFace-0.25 & 426\,608 (5.62×) & 245 & 0.765 & 0.611 & 0.271 & 4.2\\
+    & YOLO5Face-n & 446\,376 (5.88×) & 185 & \underline{0.858} & \underline{0.793} & \underline{0.445} & 7.2\\
+    & YuNet & \textbf{75\,856 (1.00×)} & \underline{149} & 0.836 & 0.747 & 0.395 & \underline{2.2}\\
+    & YuNet-s & 54\,608 (0.72×) & 96 & 0.785 & 0.668 & 0.309 & 1.9\\
+    & RetinaFace & 27\,293\,600 (359.81×) & 11\,070 & 0.868 & 0.742 & 0.341 & 49.1\\
+    & SCRFD-10g & 4\,229\,905 (55.76×) & 3\,359 & 0.923 & 0.862 & 0.504 & 17.3\\
+    \hline
+    %------------ 640 × 640 ----------------
+    640$\times$640 & SCRFD-0.5g & -- & 779 & \underline{0.907} & \underline{0.882} & 0.684 & 17.8\\
+    & RetinaFace-0.25 & -- & 981 & 0.893 & 0.831 & 0.541 & 22.0\\
+    & YOLO5Face-n & -- & 741 & \underline{0.907} & 0.880 & \underline{0.734} & 20.1\\
+    & YuNet & -- & \underline{595} & 0.899 & 0.869 & 0.691 & \underline{11.3}\\
+    & YuNet-s & -- & 386 & 0.876 & 0.834 & 0.591 & 8.7\\
+    & RetinaFace & -- & 44\,260 & 0.943 & 0.908 & 0.659 & 232.7\\
+    & SCRFD-10g & -- & 13\,435 & 0.949 & 0.935 & 0.814 & 95.0\\
+    \hline
+    %------------ Tamaño original ---------
+    Tamaño orig. & SCRFD-0.5g & -- & -- & 0.892 & \underline{0.885} & \underline{0.820} & 25.0\\
+    & RetinaFace-0.25 & -- & -- & \underline{0.907} & 0.883 & 0.742 & 57.0\\
+    & YuNet & -- & -- & 0.892 & 0.883 & 0.811 & \underline{16.3}\\
+    & YuNet-s & -- & -- & 0.887 & 0.871 & 0.768 & 13.8\\
+    & RetinaFace & -- & -- & 0.955 & 0.941 & 0.847 & 463.7\\
+    & SCRFD-10g & -- & -- & 0.923 & 0.925 & 0.885 & 137.8\\
+    
+\end{longtable}
+\end{scriptsize}
+
+
+La tabla anterior permite observar que YuNet, a pesar de su reducida cantidad de parámetros, en los 3 casos logra el mejor rendimiento en términos de latencia, por encima de otros detectores ligeros que son 5 veces más grandes. Esto tiene relación con su rendimiento en términos de FLOPs, que también tiene los registros más bajos entre los detectores comparados, lo que se traduce en una menor carga computacional y, por ende, una mayor velocidad de procesamiento.
+
+Además, YuNet alcanza un rendimiento competitivo en términos de precisión (AP), con valores muy cercanos a los del resto de detectores, y en algunos casos incluso superándolos, como en la métrica AP$_{medium}$ para el caso de imágenes de 320$\times$320 píxeles, en el que YuNet supera RetinaFace a pésar de que este es 359 veces más grande en términos de número de parámetros.
+
+Por otro lado, desde la óptica de la integración, el modelo se distribuye en formato ONNX y ha sido incorporado en la librería de modelos de OpenCV \footnote{OpenCV es una biblioteca de visión por computadora de código abierto que tiene una amplia gama de herramientas y algoritmos para el procesamiento de imágenes y videos.}, de modo que puede invocarse con una pocas líneas de código en C++ o Python, lo que facilita su adopción en proyectos de sistemas embebidos. Su bajo consumo de memoria, junto con la política de entrenamiento a partir de una única escala de entrada y el uso de asignación \textit{simOTA}, simplifica el ajuste de hiperparámetros y facilita su despliegue en dispositivos con recursos limitados \cite{wu_yunet_2023}.
+
+\subsection{Servicios en la nube para reconocimiento facial}
+
+A pesar de los avances en eficiencia y precisión de los algoritmos de detección y reconocimiento facial para dispositivos embebidos, estos sistemas enfrentan limitaciones inherentes de procesamiento, almacenamiento y consumo energético. Como solución a estas restricciones, los servicios de reconocimiento facial en la nube permiten delegar tareas computacionalmente intensivas a infraestructuras remotas, garantizando mayor escalabilidad, mantenimiento simplificado y actualizaciones constantes, como ya fue discutido en la sección \ref{sec:iot_cloud}. En la presente sección, se presenta una revisión de los principales servicios gestionados en la nube que ofrecen capacidades de reconocimiento facial, y que pueden integrarse con plataformas embebidas.
+
+\begin{itemize}
+  \item \textbf{Amazon Rekognition (AWS).} Servicio totalmente administrado (el proveedor se encarga de gestionar la configuración, mantenimiento, escalabilidad, actualizaciones y seguridad de la infraestructura subyacente) que detecta y analiza rostros en imágenes y video. Provee comparación uno-a-uno y uno-a-muchos, métricas de atributos (edad aparente, emociones, uso de gafas, etc.) y flujos de moderación de contenido. Se integra con otros servicios AWS (S3, Lambda, Kinesis) y ofrece precios por volumen de llamadas y por segundo de video procesado \cite{aws_rek}.
+  
+  \item \textbf{Azure Face API (Microsoft).} Incluye algoritmos para detección de rostros, verificación de identidad, agrupamiento y búsqueda en grandes colecciones. Soporta atributos faciales avanzados (pose, expresión, barba, accesorios) y perfiles de seguridad con Azure Active Directory. Dispone de niveles gratuitos y de pago por transacción, así como contenedores locales para escenarios \textit{edge} \cite{azure_face}.
+  
+  \item \textbf{Clarifai Face Recognition.} Plataforma basada en aprendizaje profundo que expone modelos pre-entrenados y personalizables para detección, verificación y búsqueda de rostros. Brinda SDKs en varios lenguajes, endpoints REST y gRPC, así como despliegue \emph{on-premise} (local) para requisitos de privacidad estrictos. Se factura bajo un modelo de pago por uso con niveles gratuitos y escalado automático \cite{clarifai_face}.
+  
+  \item \textbf{Face++ (Megvii).} Plataforma china con API REST y SDKs móviles que ofrece detección, verificación, búsqueda y análisis demográfico. Opera bajo un modelo de créditos pre-pago y cuenta con planes empresariales personalizados \cite{facepp}.
+
+\end{itemize}
+
+En la literatura se han documentado casos de uso exitosos de soluciones de reconocimiento facial en arquitecturas \textit{edge-cloud}, que ilustran el potencial de estas herramientas, principalmente la de Amazon Rekognition, para ampliar las capacidades de sistemas empotrados con recursos limitados. Por ejemplo, el trabajo de Patel et. al. \cite{patel_image_2020}, desarrolla un sistema de videovigilancia doméstico y accionamiento remoto de cerraduras basado en una Raspberry Pi 3B+. 
+
+El sistema utiliza un nodo local que captura únicamente fotografías, en lugar de video continuo, cuando se detecta presencia de movimiento por sensor infrarrojo o se pulsa el timbre. Las imágenes se envían a un \textit{bucket} de Amazon S3; allí, una función AWS Lambda entrega la imagen a Amazon Rekognition, almacena los vectores faciales en DynamoDB y notifica al usuario vía aplicación móvil y correo electrónico. Si la persona es reconocida, un disparador Lambda instruye a la Raspberry Pi para accionar el relé de la cerradura y mostrar un saludo personalizado en pantalla LCD. Este diseño traslada la pesada tarea de inferencia a la nube, reduce el ancho de banda (solo se suben fotografías instantáneas) y aprovecha los servicios gestionados de AWS para orquestar elasticidad, notificaciones y persistencia de eventos \cite{patel_image_2020}.
+
+Otro ejemplo es el de Kanna et. al. \cite{kanna_smart_2021}, en el que se demuestra la viabilidad de un sistema inteligente de asistencia en campus que fusiona RFID y reconocimiento facial. Una Raspberry Pi 4B gestiona simultáneamente la lectura de etiquetas MFRC522 y la captura de 30 FPS con una cámara USB. Cada segundo se genera un fotograma compuesto que se envía a una colección de Amazon Rekognition, donde se comparan los rostros con los registrados, aplicando un umbral de similitud del 85\%. Cuando el UID RFID y la cara coinciden, la asistencia se marca automáticamente y se sincroniza en tiempo real con Firebase, permitiendo a administradores y estudiantes consultar registros desde una aplicación Android. La arquitectura aprovecha a Rekognition para la identificación fiable bajo iluminación y poses variables, mientras que Firebase simplifica el \textit{backend} de datos y las notificaciones, conservando en la Raspberry Pi solo el procesamiento ligero de captura y transmisión.
+
+Ambos casos prácticos evidencian la estrategia de delegar las operaciones de visión por computador a un servicio gestionado, manteniendo en el dispositivo empotrado tareas de adquisición de datos y control de actuadores. La combinación de hardware de bajo costo (Raspberry Pi), Amazon Rekognition como motor de análisis centralizado y servicios auxiliares (S3, DynamoDB, Lambda, Firebase) permite construir soluciones robustas, escalables y de fácil mantenimiento, superando las limitaciones de cómputo, almacenamiento y actualización de firmware típicas de los sistemas embebidos tradicionales.
