@@ -223,24 +223,27 @@ Desarrollar un sistema de control de acceso para gimnasios, que mejore la seguri
 \subsection{Objetivos específicos}\label{secc:objectives}
 Los objetivos específicos se asocian con un identificador único para poder ser referenciados en secciones posteriores del documento con mayor facilidad.
 
-\begin{enumerate}
-    \item \textbf{OE1}: Diseñar la arquitectura de un sistema embebido de control de acceso, %para establecer una estructura clara de hardware y software 
-    que permita la captura y análisis de datos biométricos, mediante el uso de una plataforma de bajo costo con un sistema operativo de propósito específico.
+\newcommand{\objectives}{
+    \begin{itemize}
+        \item \textbf{OE1}: Diseñar la arquitectura de un sistema embebido de control de acceso, %para establecer una estructura clara de hardware y software 
+        que permita la captura y análisis de datos biométricos, mediante el uso de una plataforma de bajo costo con un sistema operativo de propósito específico.
+        
+        \item \textbf{OE2}: Desarrollar un módulo de reconocimiento facial, para la validación de la identidad de los usuarios en el punto de ingreso al gimnasio, mediante la integración de una cámara y el uso de servicios en la nube. %que posibiliten el procesamiento y análisis de imágenes en tiempo real.
+        
+        \item \textbf{OE3}: Integrar un módulo de reportes en el sistema de administración de Fito App, %para que los administradores de gimnasios puedan 
+        que permita la consulta de estadísticas de acceso de los usuarios, mediante %una interfaz de comunicación entre el sistema de reconocimiento facial y el \textit{backend} de Fito App, así como la visualización de los datos a través de una interfaz web.
+        una interfaz web.
+        
+        \item \textbf{OE4}: Evaluar el rendimiento del sistema en un entorno real, para la verificación del cumplimiento de los requisitos de latencia, precisión y experiencia de usuario, mediante pruebas de campo controladas. % que midan la latencia, la tasa de aciertos en el reconocimiento facial y la confiabilidad operativa del sistema.
 
-    \item \textbf{OE2}: Desarrollar un módulo de reconocimiento facial, para la validación de la identidad de los usuarios en el punto de ingreso al gimnasio, mediante la integración de una cámara y el uso de servicios en la nube. %que posibiliten el procesamiento y análisis de imágenes en tiempo real.
+    \end{itemize}
+}
+\objectives
     
-    \item \textbf{OE3}: Integrar un módulo de reportes en el sistema de administración de Fito App, %para que los administradores de gimnasios puedan 
-    que permita la consulta de estadísticas de acceso de los usuarios, mediante %una interfaz de comunicación entre el sistema de reconocimiento facial y el \textit{backend} de Fito App, así como la visualización de los datos a través de una interfaz web.
-    una interfaz web.
-    
-    \item \textbf{OE4}: Evaluar el rendimiento del sistema en un entorno real, para la verificación del cumplimiento de los requisitos de latencia, precisión y experiencia de usuario, mediante pruebas de campo controladas. % que midan la latencia, la tasa de aciertos en el reconocimiento facial y la confiabilidad operativa del sistema.
-
-\end{enumerate}
-
 \newpage
 \section{Alcances, entregables y limitaciones del proyecto.}
 En esta sección se describen los alcances, entregables y limitaciones del proyecto, con el objetivo de delimitar claramente lo que se espera lograr, los productos que se generarán como resultado del desarrollo y las restricciones que podrían influir en la ejecución del mismo.
-
+    
 \subsection{Alcances}
 El proyecto contempla el diseño, implementación e integración de un sistema de control de acceso para gimnasios, utilizando reconocimiento facial como método de validación de identidad. El sistema será desarrollado sobre una plataforma embebida de propósito específico, conectada a servicios de reconocimiento facial en la nube, y comunicada con el sistema administrativo actual de Fito App.
 
@@ -259,19 +262,42 @@ El proyecto no contempla el desarrollo de modelos de reconocimiento facial propi
 \subsection{Entregables}
 En la \textit{Tabla \ref{tab:deliverables}}, se resumen los entregables del proyecto en función de los objetivos específicos planteados.
 
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{p{1.5cm}|p{4.5cm}|p{8cm}}
-        \hline
-        \textbf{Obj.} & \textbf{Entregable} & \textbf{Descripción} \\ \hline
-        \textbf{OE1} & Documento de arquitectura & Especificación de la arquitectura hardware-software del sistema embebido, incluyendo diagramas y justificación técnica. \\ \hline
-        \textbf{OE2} & Módulo de reconocimiento facial & Aplicación funcional que capture imágenes, valide identidades mediante un servicio de reconocimiento facial y brinde retroalimentación al usuario por medio de señales auditivas (buzzer) y visuales (pantalla). \\ \hline
-        \textbf{OE3} & Módulo de reportes & Interfaz de visualización web integrada al sistema de Fito App para mostrar estadísticas de acceso a los administradores. \\ \hline
-        \textbf{OE4} & Informe de pruebas de rendimiento & Documento con los resultados de pruebas realizadas en entorno real, incluyendo métricas de latencia y precisión. \\ \hline
-    \end{tabular}
-    \caption{Entregables del proyecto según objetivo específico}
-    \label{tab:deliverables}
-\end{table}
+\newcommand{\deliverablearch}{Documento de arquitectura}
+\newcommand{\deliverabledet}{Unidad de interacción y detección facial}
+\newcommand{\deliverableos}{Imagen de sistema operativo para nodo embebido}
+\newcommand{\deliverablerec}{Servicio de reconocimiento facial y autorización}
+\newcommand{\deliverablerep}{Módulo de reportes}
+\newcommand{\deliverableperf}{Informe de pruebas de rendimiento}
+
+\begin{longtable}{l|p{4.5cm}|p{8cm}}
+    \caption{Entregables del proyecto en función de los objetivos específicos.} 
+    \label{tab:deliverables} \\
+    \hline
+    \multicolumn{1}{c|}{\textbf{Obj. Esp.}} & \multicolumn{1}{c|}{\textbf{Entregable}} & \multicolumn{1}{c}{\textbf{Descripción}} \\ 
+    \hline
+    \endfirsthead
+
+    \multicolumn{3}{c}{\tablename\ \thetable{}: Entregables del proyecto en función de los objetivos específicos (continuación)} \\
+    \hline
+    
+    \multicolumn{1}{c|}{\textbf{Obj. Esp.}} & \multicolumn{1}{c|}{\textbf{Entregable}} & \multicolumn{1}{c}{\textbf{Descripción}} \\ 
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{3}{r}{\textit{Continúa en la siguiente página}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+    
+    \textbf{OE1} & \deliverablearch & Especificación de la arquitectura hardware-software del sistema embebido, incluyendo diagramas y justificación técnica. \\ \hline
+    \textbf{OE2} & \deliverabledet & Conjunto hardware-software residente en el nodo embebido que captura las imágenes faciales, coordina la comunicación con la nube para su procesamiento y ofrece retroalimentación inmediata al usuario mediante indicadores audiovisuales.\\ \hline
+    \textbf{OE2} & \deliverableos & Distribución Linux minimalista personalizada que incluye todos los componentes de software requeridos por el nodo en borde, facilitando la replicación e instalación en campo.\\ \hline
+    \textbf{OE2} & \deliverablerec & Microservicio desplegado en infraestructura \textit{cloud} que procesa las imágenes enviadas desde el módulo local, realiza la validación de identidad y estado de membresía del usuario, y devuelve el resultado al nodo en borde. \\ \hline
+    \textbf{OE3} & \deliverablerep & Interfaz de visualización web integrada al sistema de Fito App para mostrar estadísticas de acceso a los administradores. \\ \hline
+    \textbf{OE4} & \deliverableperf & Documento con los resultados de pruebas realizadas en entorno real, incluyendo métricas de latencia y precisión. \\ \hline
+\end{longtable}
 
 
 \subsection{Limitaciones del proyecto}
@@ -292,4 +318,4 @@ El desarrollo del proyecto se verá influenciado por diversas limitaciones que p
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "main"
-%%% End: 
+%%% End:
